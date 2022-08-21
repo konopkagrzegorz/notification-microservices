@@ -1,0 +1,77 @@
+version: '3.1'
+services:
+  notification-eureka-server:
+    container_name: notification-eureka-server
+    build:
+      context: ./notification-eureka-server
+      dockerfile: Dockerfile
+    networks:
+      - notification-microservices
+    ports:
+      - "8761:8761"
+  email-filtering-service:
+    container_name: email-filtering-service
+    build:
+      context: ./email-filtering-service
+      dockerfile: Dockerfile
+    networks:
+      - notification-microservices
+    environment:
+      - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
+    ports:
+      - "8082:8082"
+    depends_on:
+      - notification-eureka-server
+
+  email-rest-client:
+    container_name: email-rest-client
+    build:
+      context: ./email-rest-client
+      dockerfile: Dockerfile
+    networks:
+      - notification-microservices
+    env_file:
+      - ./email-rest-client/.env
+    environment:
+      - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
+      - email.filtering.service=http://email-filtering-service:8082/filtering/api
+      - message.service=http://message-service:8083/msg/api
+    ports:
+      - "8081:8081"
+    depends_on:
+      - email-filtering-service
+      - message-service
+
+  message-service:
+    container_name: message-service
+    build:
+      context: ./message-service
+      dockerfile: Dockerfile
+    networks:
+      - notification-microservices
+    environment:
+      - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
+    ports:
+      - "8083:8083"
+    depends_on:
+      - notification-eureka-server
+  notification-gateway:
+    container_name: notification-gateway
+    build:
+      context: ./notification-gateway
+      dockerfile: Dockerfile
+    networks:
+      - notification-microservices
+    environment:
+      - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - notification-eureka-server
+      - email-filtering-service
+      - message-service
+      - email-rest-client
+
+networks:
+  notification-microservices:
+    driver: bridge

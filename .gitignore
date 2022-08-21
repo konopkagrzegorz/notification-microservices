@@ -1,0 +1,10 @@
+credentials.json
+target/
+*.iml
+bin/
+.idea/
+.mvn/
+mvnw
+mvnw.cmd
+data.sql
+.env

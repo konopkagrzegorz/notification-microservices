@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: NOTIFICATION-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: EMAIL-FILTERING-SERVICE
+          uri: lb://EMAIL-FILTERING-SERVICE
+          predicates:
+            - Path=/filtering/api/**
+        - id: EMAIL-REST-CLIENT
+          uri: lb://EMAIL-REST-CLIENT
+          predicates:
+            - Path=/email/api/**
+        - id: MESSAGE-SERVICE
+          uri: lb://MESSAGE-SERVICE
+          predicates:
+            - Path=/msg/api/**
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://notification-eureka-server:8761/eureka/
+  instance:
+    hostname: localhost
