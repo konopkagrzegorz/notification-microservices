@@ -54,11 +54,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<finalName>notification-gateway</finalName>
-				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>notification-gateway</finalName>
 	</build>
 
 </project>

@@ -3,27 +3,30 @@ server:
 
 spring:
   application:
-    name: NOTIFICATION-GATEWAY
+    name: notification-gateway
   cloud:
     gateway:
       routes:
-        - id: EMAIL-FILTERING-SERVICE
-          uri: lb://EMAIL-FILTERING-SERVICE
+        - id: email-filtering-service
+          uri: lb://email-filtering-service
           predicates:
             - Path=/filtering/api/**
-        - id: EMAIL-REST-CLIENT
-          uri: lb://EMAIL-REST-CLIENT
+            - Method=GET,POST,DELETE,PUT,OPTIONS
+        - id: email-rest-client
+          uri: lb://email-rest-client
           predicates:
             - Path=/email/api/**
-        - id: MESSAGE-SERVICE
-          uri: lb://MESSAGE-SERVICE
+            - Method=GET,POST,DELETE,PUT,OPTIONS
+        - id: message-service
+          uri: lb://message-service
           predicates:
             - Path=/msg/api/**
+            - Method=GET,POST,DELETE,PUT,OPTIONS
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://notification-eureka-server:8761/eureka/
+      defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost

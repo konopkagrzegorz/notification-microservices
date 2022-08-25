@@ -34,11 +34,12 @@ services:
       - ./email-rest-client/.env
     environment:
       - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
-      - email.filtering.service=http://email-filtering-service:8082/filtering/api
       - message.service=http://message-service:8083/msg/api
+      - email.filtering.service=http://email-filtering-service:8082/filtering/api
     ports:
       - "8081:8081"
     depends_on:
+      - notification-eureka-server
       - email-filtering-service
       - message-service
 
@@ -54,7 +55,9 @@ services:
     ports:
       - "8083:8083"
     depends_on:
+      - email-filtering-service
       - notification-eureka-server
+
   notification-gateway:
     container_name: notification-gateway
     build:
@@ -62,6 +65,11 @@ services:
       dockerfile: Dockerfile
     networks:
       - notification-microservices
+    links:
+      - notification-eureka-server
+      - email-filtering-service
+      - email-rest-client
+      - message-service
     environment:
       - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
     ports:

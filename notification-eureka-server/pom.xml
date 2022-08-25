@@ -12,7 +12,7 @@
 	<artifactId>notification-eureka-server</artifactId>
 	<version>1.0</version>
 	<name>notification-eureka-server</name>
-	<description>Server discofery for notification services</description>
+	<description>Server discovery for notification services</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2021.0.3</spring-cloud.version>
@@ -46,11 +46,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<finalName>notification-eureka-server</finalName>
-				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>notification-eureka-server</finalName>
 	</build>
 
 </project>

@@ -70,10 +70,10 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<finalName>message-service</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>message-service</finalName>
 	</build>
 
 </project>

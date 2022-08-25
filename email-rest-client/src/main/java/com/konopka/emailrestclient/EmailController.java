@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("email/api")
+@RequestMapping("/email/api")
 public class EmailController {
 
     private final EmailService emailService;

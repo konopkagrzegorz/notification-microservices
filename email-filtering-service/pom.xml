@@ -69,10 +69,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<finalName>email-filtering-service</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>email-filtering-service</finalName>
 	</build>
 
 </project>
