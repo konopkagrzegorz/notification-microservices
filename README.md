@@ -59,12 +59,12 @@ In a result all those microservices will be available under `http://localhost:80
 3. Create an environment variable called `GMAIL_REFFRESH_TOKEN` and paste the value for `refresh token`.
 4. In `email-filtering-service` add filters according to `sample-data.sql` and name created file `data.sql`.
 5. In `message-service` add template and pattern similar to `sample-data.sql` and name created file `data.sql`
-6. Create a file `.env` in `email-rest-client` - refer to `.sample-nev` - this file wille be needed to create an environment
+6. Create a file `.env` in `email-rest-client` - refer to `.sample-env` - this file wille be needed to create an environment
 variable during creating a docker container.
 7. Create an environment variable in your OS - it is needed to create a `.jar` files.
 8. Go to the root of the project - `notification-microservices`.
 9. Type `mvn clean package` in your terminal.
-10. After successfully created `.jar` files type in your terminal `dokcer compose up` - it will create images
+10. After successfully created `.jar` files type in your terminal `docker compose up` - it will create images
 and containers for this project.
 11. And that's it, you can make `URL's` call listed below:
     * http://localhost:8080/email/api/emails - for getting the list of received and filtered emails
