@@ -12,7 +12,7 @@ Invoice: invoice
 Cash: payment PLN
 Payment date: date
 Account number: account');
-
-INSERT INTO `KEY_PATTERN` (`id`, `keyword`, `type`,`pattern`) VALUES (1,'exampleg@example.com'', 'invoice','[0-9]{1,10}\/[0-9]{1,4}\/[0-9]{4}\/F');
-INSERT INTO `KEY_PATTERN` (`id`, `keyword`, `type`,`pattern`) VALUES (2,'exampleg@example.com', 'payment','[0-9]{0,3}\,[0-9]{2}');
-INSERT INTO `KEY_PATTERN` (`id`, `keyword`, `type`,`pattern`) VALUES (3,'exampleg@example.com'', 'date','[0-9]{2}-[0-9]{2}-[0-9]{4}');
+example@example.com
+INSERT INTO `KEY_PATTERN` (`id`, `keyword`, `type`,`pattern`) VALUES (1,'example@example.com', 'invoice','[0-9]{1,10}\/[0-9]{1,4}\/[0-9]{4}\/F');
+INSERT INTO `KEY_PATTERN` (`id`, `keyword`, `type`,`pattern`) VALUES (2,'example@example.com', 'payment','[0-9]{0,3}\,[0-9]{2}');
+INSERT INTO `KEY_PATTERN` (`id`, `keyword`, `type`,`pattern`) VALUES (3,'example@example.com', 'date','[0-9]{2}-[0-9]{2}-[0-9]{4}');
