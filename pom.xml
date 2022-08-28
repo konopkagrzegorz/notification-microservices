@@ -13,6 +13,7 @@
         <module>email-filtering-service</module>
         <module>email-rest-client</module>
         <module>message-service</module>
+        <module>notification-service</module>
         <module>notification-eureka-server</module>
         <module>notification-gateway</module>
     </modules>

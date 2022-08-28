@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface MessageRepository extends JpaRepository<Message,Long> {
 
-    List<Message> findByStatus(String status);
+    List<Message> findByStatus(Status status);
     Optional<Message> findByEmailUuid(String emailUuid);
 }

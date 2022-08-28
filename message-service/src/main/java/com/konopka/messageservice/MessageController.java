@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -29,8 +30,16 @@ public class MessageController {
         return new ResponseEntity<>(messageDTO.get(),HttpStatus.ACCEPTED);
     }
 
+    @PutMapping("/message/{id}")
+    public ResponseEntity<Void> updateMessage(@PathVariable String id, @RequestBody MessageDTO messageDTO) {
+        messageService.update(messageDTO);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/messages")
-    public ResponseEntity<List<MessageDTO>> getMessages() {
+    public ResponseEntity<List<MessageDTO>> getMessages(@RequestParam(required = false) Status status) {
+        if (Objects.nonNull(status))
+            return ResponseEntity.ok(messageService.findAllMessagesWithStatus(status));
         return ResponseEntity.ok(messageService.findAll());
     }
 }

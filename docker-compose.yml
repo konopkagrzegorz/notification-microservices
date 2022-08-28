@@ -58,6 +58,21 @@ services:
       - email-filtering-service
       - notification-eureka-server
 
+  notification-service:
+    container_name: notification-service
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    networks:
+      - notification-microservices
+    environment:
+      - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
+    ports:
+      - "8084:8084"
+    depends_on:
+      - message-service
+      - notification-eureka-server
+
   notification-gateway:
     container_name: notification-gateway
     build:

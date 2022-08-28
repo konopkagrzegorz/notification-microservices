@@ -22,6 +22,12 @@ spring:
           predicates:
             - Path=/msg/api/**
             - Method=GET,POST,DELETE,PUT,OPTIONS
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/notification/api/**
+            - Method=GET,POST,DELETE,PUT,OPTIONS
+
 eureka:
   client:
     register-with-eureka: true

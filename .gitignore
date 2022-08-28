@@ -8,3 +8,4 @@ mvnw
 mvnw.cmd
 data.sql
 .env
+twilio.properties
