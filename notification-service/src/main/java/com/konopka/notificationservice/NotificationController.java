@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/notification/api")
@@ -27,15 +28,14 @@ public class NotificationController {
     }
 
     @GetMapping("/notify")
-    @Scheduled(cron = "0 25 15 * * *")
+    @Scheduled(cron = "0 30 17 * * *")
     public ResponseEntity<Void> notification() {
         List<MessageDTO> messages = messageClientService.getNotSentMessages();
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate now = LocalDate.now();
-        messages.stream().
-                filter(messageDTO -> ChronoUnit.DAYS.between(messageDTO.getSendDate().atStartOfDay(),now.atStartOfDay()) >= 2L)
-                .forEach(smsServiceClient::sendSMS);
-        messages.forEach(messageClientService::updateMessage);
+        List<MessageDTO> filtered = messages.stream().
+                filter(messageDTO -> ChronoUnit.DAYS.between(messageDTO.getSendDate(), now) >= 2L).toList();
+        filtered.forEach(smsServiceClient::sendSMS);
+        filtered.forEach(messageClientService::updateMessage);
         return ResponseEntity.ok().build();
     }
 }

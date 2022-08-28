@@ -23,7 +23,7 @@ public class EmailController {
     }
 
     @GetMapping("/emails")
-    @Scheduled(cron = "0 25 22 * * *")
+    @Scheduled(cron = "0 20 17 * * *")
     public ResponseEntity<List<EmailDTO>> getEmails() throws IOException {
         return ResponseEntity.ok(emailService.getNewMessages());
     }

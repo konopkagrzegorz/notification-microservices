@@ -39,6 +39,10 @@ generate them based on `templates` and `key_pattern` filter.
 
 In `sample-data.sql` examples can be found how a proper `template-key_pattern` searching feature should look like.
 
+### NOTIFICATION-SERVICE
+This service is responsible for fetching all not sent messages and check if the deadline is greater or equal `2 days`.
+If this condition is met then a `REST` call to `twilio API` is sent - and status of message is updateded in `message-servie`.
+
 ### NOTIFICATION-EUREKA-SERVER
 Microservice responsible for client discovery and matching the request to proper microservice no matter how many instances
 you will have.
@@ -49,9 +53,7 @@ for instance:
 * `email-rest-client` is running on port `8081` and has an endpoint `/email/api`
 * `message-service` is running on port `8083` and has an endpoint `/msg/api`
 
-In a result all those microservices will be available under `http://localhost:8080` 
-
-//TODO CREATE ANOTHER MICROSERVICE WHICH WILL BE RESPONSIBLE FOR SENDING A MESSAGE
+In a result all those microservices will be available under `http://localhost:8080`
 
 ## HOW TO RUN THE PROJECT?
 1. Please refer to [this](https://www.youtube.com/watch?v=-rcRf7yswfM) youtube video from *0:00* to *7:00*
@@ -61,10 +63,14 @@ In a result all those microservices will be available under `http://localhost:80
 5. Create a file `.env` in `email-rest-client` - refer to `.sample-env` - this file wille be needed to create an environment
 variable during creating a docker container. 
 6. Create an environment variable in your OS `GMAIL_REFRESH_TOKEN` - it is needed to create a `.jar` files. 
-7. Go to the root of the project - `notification-microservices`. 
-8. Type `mvn clean package` in your terminal. 
-9. After successfully created `.jar` files type in your terminal `docker compose up` - it will create images
+7. Register your account on [TWILIO](https://www.twilio.com)
+8. Generate your phone number and `ACCOUNT_SID` `AUTH_TOKEN`.
+9. Change the name of `sample-twilio.properties` file into `twilio.properties`.
+10. Add values to keys in this file.
+11. Go to the root of the project - `notification-microservices`. 
+12. Type `mvn clean package` in your terminal. 
+13. After successfully created `.jar` files type in your terminal `docker compose up` - it will create images
 and containers for this project. 
-10. And that's it, you can make `URL's` call listed below:
+14. And that's it, you can make `URL's` calls listed below:
      * http://localhost:8080/email/api/emails - for getting the list of received and filtered emails
      * http://localhost:8080/msg/api/messages - to get a list of all created messages
