@@ -74,3 +74,7 @@ and containers for this project.
 14. And that's it, you can make `URL's` calls listed below:
      * http://localhost:8080/email/api/emails - for getting the list of received and filtered emails
      * http://localhost:8080/msg/api/messages - to get a list of all created messages
+
+## EXAMPLE OF RUNNING APPLICATION
+
+![sample-notification](https://github.com/konopkagrzegorz/notification-microservices/blob/master/sample-notification.png)
