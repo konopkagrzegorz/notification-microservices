@@ -21,6 +21,10 @@ with appropriate `message body` two days before
 
 ![architecture overview](https://github.com/konopkagrzegorz/notification-microservices/blob/master/notification-microservices-overview.svg)
 
+### ACTION DIAGRAM
+
+![action diagram](https://github.com/konopkagrzegorz/notification-microservices/blob/master/action-diagram.svg)
+
 ### EMAIL-FILTERING-SERVICE
 Main task of this microservice is to filter the emails received from the gmail api via the email-rest-client 
 based on the filters set. Example filters can be found in the `sample-data.sql` file where respectively:
