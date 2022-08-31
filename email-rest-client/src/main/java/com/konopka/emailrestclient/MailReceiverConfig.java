@@ -32,7 +32,7 @@ import static com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets.l
 @PropertySource("classpath:application-dev.properties")
 public class MailReceiverConfig {
 
-    @Value("${spring.gmail.application.name}")
+    @Value("${spring.application.name}")
     private String APPLICATION_NAME;
 
     @Value("${spring.gmail.refresh.token}")

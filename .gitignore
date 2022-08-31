@@ -1,11 +1,19 @@
-credentials.json
 target/
-*.iml
 bin/
 .idea/
 .mvn/
 mvnw
 mvnw.cmd
+*.iml
+
+## POSTGRES VOLUMES
+/postgres-email-filtering-service
+/postgres-email-rest-client
+/postgres-message-service
+
+## PIVATE FILES
+credentials.json
 data.sql
 .env
+.postgresql-env
 twilio.properties

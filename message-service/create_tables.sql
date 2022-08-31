@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS message (
+  id SERIAL,
+  body VARCHAR(255) NOT NULL,
+  email_uuid VARCHAR(255) NOT NULL,
+  send_date DATE NOT NULL,
+  status VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE IF NOT EXISTS key_pattern (
+  id SERIAL,
+  keyword VARCHAR(255) NOT NULL,
+  type VARCHAR(255) NOT NULL,
+  pattern VARCHAR(255) NOT NULL
+);

@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS email (
+  id SERIAL,
+  email_from VARCHAR(255) NOT NULL,
+  subject VARCHAR(255) NOT NULL,
+  body TEXT NOT NULL,
+  date VARCHAR(255) NOT NULL,
+  message_id VARCHAR(255) NOT NULL
+);
