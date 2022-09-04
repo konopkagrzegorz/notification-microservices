@@ -1,9 +1,11 @@
 package com.konopka.emailfilteringservice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/filtering/api")
 public class FilteringController {
@@ -17,6 +19,8 @@ public class FilteringController {
 
     @PutMapping("/filter")
     public ResponseEntity<Boolean> mailContainsKey(@RequestBody EmailDTO emailDTO) {
+        log.debug("Calling the {} to check if mail contains searched key\n" +
+                "EmailDTO: {}" , filterService.getClass().getSimpleName(), emailDTO);
         if (filterService.getKeyByFromAndValue(emailDTO).isPresent())
             return ResponseEntity.ok(Boolean.TRUE);
         return ResponseEntity.ok(Boolean.FALSE);

@@ -1,11 +1,13 @@
 package com.konopka.emailfilteringservice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class FilterService {
 
@@ -27,6 +29,7 @@ public class FilterService {
                 for (String val : value) {
                     if (filterRepository.findByMajorAndVal(key,val).isPresent()) {
                         filterDTO = Optional.of(filterMapper.mapKeyToKeyDTO(filterRepository.findByMajorAndVal(key,val).get()));
+                        log.debug("EmailDTO: {} contains keys: {}, {}", emailDTO,key,val);
                         break;
                     }
 
