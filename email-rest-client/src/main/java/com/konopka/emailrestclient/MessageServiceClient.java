@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @Service
 @Profile("dev")
-public class MessageServiceClient {
+public class MessageServiceClient implements MessageService {
 
     private static final String MESSAGE = "/message";
 
@@ -25,6 +25,7 @@ public class MessageServiceClient {
         this.restTemplate = restTemplate;
     }
 
+    @Override
     public ResponseEntity<MessageDTO> saveMessage(EmailDTO emailDTO) {
         log.debug("Calling {} to create and save a message {}", emailFilteringServiceApiHost, emailDTO.getMessageId());
         ResponseEntity<MessageDTO> response = restTemplate

@@ -15,20 +15,20 @@ public class EmailService {
     private final EmailRepository emailRepository;
     private final MailServiceReceiver mailServiceReceiver;
     private final EmailMapper emailMapper;
-    private final EmailFilteringService emailFilteringService;
-    private final MessageServiceClient messageServiceClient;
+    private final EmailFilteringServiceClient emailFilteringServiceClient;
+    private final MessageService messageService;
 
     @Autowired
     public EmailService(EmailRepository emailRepository,
                         MailServiceReceiver mailServiceReceiver,
                         EmailMapper emailMapper,
-                        EmailFilteringService emailFilteringService,
-                        MessageServiceClient messageServiceClient) {
+                        EmailFilteringServiceClient emailFilteringServiceClient,
+                        MessageService messageService) {
         this.emailRepository = emailRepository;
         this.mailServiceReceiver = mailServiceReceiver;
         this.emailMapper = emailMapper;
-        this.emailFilteringService = emailFilteringService;
-        this.messageServiceClient = messageServiceClient;
+        this.emailFilteringServiceClient = emailFilteringServiceClient;
+        this.messageService = messageService;
     }
 
     public List<EmailDTO> getNewMessages() {
@@ -38,11 +38,11 @@ public class EmailService {
                 emailRepository.findEmailByMessageId(emailDTO.getMessageId())
                         .ifPresentOrElse((dto -> log.debug("{} already exists in repository",
                                 emailDTO.getMessageId())), () -> {
-                            if (Boolean.TRUE.equals(emailFilteringService.isMailInFilteringService(emailDTO))) {
+                            if (Boolean.TRUE.equals(emailFilteringServiceClient.isMailInFilteringService(emailDTO))) {
                                 Email email = emailMapper.emailDtoToEmail(emailDTO);
                                 emailRepository.save(email);
                                 log.info("Saved Email: {}", email);
-                                messageServiceClient.saveMessage(emailDTO);
+                                messageService.saveMessage(emailDTO);
                             }
                 });
             }

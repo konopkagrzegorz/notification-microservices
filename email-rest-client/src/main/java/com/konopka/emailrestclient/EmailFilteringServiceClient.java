@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class EmailFilteringService {
+public class EmailFilteringServiceClient {
 
     private static final String FILTER = "/filter";
 
@@ -19,7 +19,7 @@ public class EmailFilteringService {
     RestTemplate restTemplate;
 
     @Autowired
-    public EmailFilteringService(RestTemplate restTemplate) {
+    public EmailFilteringServiceClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
