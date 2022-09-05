@@ -16,19 +16,19 @@ public class EmailService {
     private final MailServiceReceiver mailServiceReceiver;
     private final EmailMapper emailMapper;
     private final EmailFilteringService emailFilteringService;
-    private final MessageService messageService;
+    private final MessageServiceClient messageServiceClient;
 
     @Autowired
     public EmailService(EmailRepository emailRepository,
                         MailServiceReceiver mailServiceReceiver,
                         EmailMapper emailMapper,
                         EmailFilteringService emailFilteringService,
-                        MessageService messageService) {
+                        MessageServiceClient messageServiceClient) {
         this.emailRepository = emailRepository;
         this.mailServiceReceiver = mailServiceReceiver;
         this.emailMapper = emailMapper;
         this.emailFilteringService = emailFilteringService;
-        this.messageService = messageService;
+        this.messageServiceClient = messageServiceClient;
     }
 
     public List<EmailDTO> getNewMessages() {
@@ -42,7 +42,7 @@ public class EmailService {
                                 Email email = emailMapper.emailDtoToEmail(emailDTO);
                                 emailRepository.save(email);
                                 log.info("Saved Email: {}", email);
-                                messageService.saveMessage(emailDTO);
+                                messageServiceClient.saveMessage(emailDTO);
                             }
                 });
             }

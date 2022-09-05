@@ -31,8 +31,7 @@ public class GmailMessageToEmailMapper {
         if (header.get().getName().equals("From")) {
             int leftIndex = header.get().getValue().indexOf("<") + 1;
             int rightIndex = header.get().getValue().indexOf(">");
-            String from = header.get().getValue().substring(leftIndex,rightIndex);
-            return from;
+            return header.get().getValue().substring(leftIndex,rightIndex);
         }
         return header.get().getValue();
     }

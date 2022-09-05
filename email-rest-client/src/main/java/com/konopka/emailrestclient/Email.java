@@ -16,7 +16,6 @@ public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column(name = "email_from")
     private String from;
     private String subject;
@@ -24,4 +23,5 @@ public class Email {
     private String body;
     private String date;
     private String messageId;
+
 }
