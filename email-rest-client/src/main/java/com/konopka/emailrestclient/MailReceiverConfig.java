@@ -29,7 +29,7 @@ import static com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets.l
 
 @Slf4j
 @Configuration
-@PropertySource("classpath:application-dev.properties")
+@PropertySource("classpath:application-dev.yml")
 public class MailReceiverConfig {
 
     @Value("${spring.application.name}")
@@ -37,6 +37,7 @@ public class MailReceiverConfig {
 
     @Value("${spring.gmail.refresh.token}")
     private String REFRESH_TOKEN;
+
     private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
 

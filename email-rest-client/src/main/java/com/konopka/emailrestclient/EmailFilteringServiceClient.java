@@ -13,7 +13,7 @@ public class EmailFilteringServiceClient {
 
     private static final String FILTER = "/filter";
 
-    @Value("${email.filtering.service}")
+    @Value("${httpClients.email-filtering-service}")
     private String emailFilteringServiceApiHost;
 
     RestTemplate restTemplate;

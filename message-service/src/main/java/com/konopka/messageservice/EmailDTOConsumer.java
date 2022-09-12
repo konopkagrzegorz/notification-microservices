@@ -1,17 +1,19 @@
-package com.konopka.emailrestclient;
+package com.konopka.messageservice;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Service
-@Profile("dev")
-public class MessageServiceClient implements MessageService {
+@Profile("docker")
+public class EmailDTOConsumer {
 
     private static final String MESSAGE = "/message";
 
@@ -20,14 +22,15 @@ public class MessageServiceClient implements MessageService {
 
     RestTemplate restTemplate;
 
-    public MessageServiceClient(RestTemplate restTemplate) {
+    public EmailDTOConsumer(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    @Override
-    public void saveMessage(EmailDTO emailDTO) {
-        log.debug("Calling {} to create and save a message {}", messageServiceApiHost, emailDTO.getMessageId());
+
+    @KafkaListener(topics = "message-service-topic",groupId = "group_id")
+    public void consumeMessage(EmailDTO message) {
+        log.debug("Calling {} to create and save a message {}", messageServiceApiHost, message.getMessageId());
         restTemplate.exchange(messageServiceApiHost + MESSAGE,
-                HttpMethod.PUT, new HttpEntity<>(emailDTO), MessageDTO.class);
+                HttpMethod.PUT, new HttpEntity<>(message), MessageDTO.class);
     }
 }

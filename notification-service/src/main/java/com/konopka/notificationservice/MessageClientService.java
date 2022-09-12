@@ -17,7 +17,7 @@ public class MessageClientService {
     private static final String MESSAGES = "/messages";
     private static final String MESSAGE = "/message";
 
-    @Value("${message.service}")
+    @Value("${httpClients.message-service}")
     private String messageService;
 
     private final RestTemplate restTemplate;

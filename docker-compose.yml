@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.7'
 services:
   notification-eureka-server:
     container_name: notification-eureka-server
@@ -42,8 +42,9 @@ services:
     environment:
       - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
       - spring.profiles.active=docker
-      - message.service=http://message-service:8083/msg/api
-      - email.filtering.service=http://email-filtering-service:8082/filtering/api
+      - httpClients.message-service=http://message-service:8083/msg/api
+      - httpClients.email-filtering-service=http://email-filtering-service:8082/filtering/api
+      - spring.kafka.bootstrap-servers=kafka:9092
     ports:
       - "8081:8081"
     depends_on:
@@ -51,6 +52,8 @@ services:
       - db-email-rest-client
       - email-filtering-service
       - message-service
+      - kafka
+      - zookeeper
     links:
       - db-email-rest-client
 
@@ -65,7 +68,9 @@ services:
       - ./message-service/.env
     environment:
       - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
+      - httpClients.message-service=http://message-service:8083/msg/api
       - spring.profiles.active=docker
+      - spring.kafka.bootstrap-servers=kafka:9092
     ports:
       - "8083:8083"
     depends_on:
@@ -153,6 +158,34 @@ services:
     volumes:
       - ./postgres-message-service:/var/lib/postgresql/data
       - ./message-service/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    container_name: zookeeper
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - "2181:2181"
+    networks:
+      - notification-microservices
+
+  kafka:
+    image: bitnami/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    hostname: kafka
+    networks:
+      - notification-microservices
+    links:
+      - zookeeper
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CREATE_TOPICS="message-service-topic:1:1"
+
 
 networks:
   notification-microservices:

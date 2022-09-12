@@ -41,7 +41,6 @@ public class EmailService {
                             if (Boolean.TRUE.equals(emailFilteringServiceClient.isMailInFilteringService(emailDTO))) {
                                 Email email = emailMapper.emailDtoToEmail(emailDTO);
                                 emailRepository.save(email);
-                                log.info("Saved Email: {}", email);
                                 messageService.saveMessage(emailDTO);
                             }
                 });
