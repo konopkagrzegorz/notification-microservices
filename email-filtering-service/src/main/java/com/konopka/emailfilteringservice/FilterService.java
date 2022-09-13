@@ -28,7 +28,7 @@ public class FilterService {
             if (filterRepository.findByMajor(key).isPresent()) {
                 for (String val : value) {
                     if (filterRepository.findByMajorAndVal(key,val).isPresent()) {
-                        filterDTO = Optional.of(filterMapper.mapKeyToKeyDTO(filterRepository.findByMajorAndVal(key,val).get()));
+                        filterDTO = Optional.of(filterMapper.mapFilterToFilterDTO(filterRepository.findByMajorAndVal(key,val).get()));
                         log.debug("EmailDTO: {} contains keys: {}, {}", emailDTO,key,val);
                         break;
                     }
