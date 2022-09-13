@@ -1,11 +1,11 @@
 # NOTIFICATION MICROSERVICES
 
 This project was developed to introduce myself into microservices architecture by practicing 
-it with usage of modern organizing tools like:
+it with usage of modern tools like:
 * docker
 * eureka server for service discovery
 * spring api gateway
-* spring boot actuator
+* kafka with zookeeper
 
 
 General idea behind this project is that it is hard for me to remember all the things which
