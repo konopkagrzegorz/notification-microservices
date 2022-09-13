@@ -33,10 +33,12 @@ based on the filters set. Example filters can be found in the `sample-data.sql` 
 
 If the message meets the requirements specified in the filter, it will be stored in the `email-rest-client` 
 database and after than it can be proceeded further by `message-service`.
+
 ### EMAIL-REST-CLIENT
 Main task of this microservice is to fetch emails from `Gmail API` and if that message meets the requirements 
 specified in `email-filtering-service` it will be stored in this microservice database. After that if the `message UUID` 
 has not been found in the `message-service` then it will be stored in that microservice by appropriate `REST` call.
+
 ### MESSAGE-SERVICE
 This microservice is responsible for creating a messages body based on emails received from `email-rest-client` and 
 generate them based on `templates` and `key_pattern` filter.
@@ -50,6 +52,7 @@ If this condition is met then a `REST` call to `twilio API` is sent - and status
 ### NOTIFICATION-EUREKA-SERVER
 Microservice responsible for client discovery and matching the request to proper microservice no matter how many instances
 you will have.
+
 ### NOTIFICATION-GATEWAY
 Microservice responsible for having a possibility to use single context root path to communicate with all microservices
 for instance:
@@ -61,21 +64,35 @@ In a result all those microservices will be available under `http://localhost:80
 
 ## HOW TO RUN THE PROJECT?
 1. Please refer to [this](https://www.youtube.com/watch?v=-rcRf7yswfM) youtube video from *0:00* to *7:00*
-2. Copy your credentials and paste them to `email-rest-client` under *resources*
-3. In `email-filtering-service` add filters according to `sample-data.sql` and name created file `data.sql`. 
-4. In `message-service` add template and pattern similar to `sample-data.sql` and name created file `data.sql`
-5. Create a file `.env` in `email-rest-client` - refer to `.sample-env` - this file wille be needed to create an environment
-variable during creating a docker container. 
-6. Create an environment variable in your OS `GMAIL_REFRESH_TOKEN` - it is needed to create a `.jar` files. 
-7. Register your account on [TWILIO](https://www.twilio.com)
-8. Generate your phone number and `ACCOUNT_SID` `AUTH_TOKEN`.
-9. Change the name of `sample-twilio.properties` file into `twilio.properties`.
-10. Add values to keys in this file.
-11. Go to the root of the project - `notification-microservices`. 
-12. Type `mvn clean package` in your terminal. 
-13. After successfully created `.jar` files type in your terminal `docker compose up` - it will create images
+2. Copy your credentials and paste them to `email-rest-client` under *resources*, please refer to `sample-credentials.json`.
+3. Create an environment variable in your OS `GMAIL_REFRESH_TOKEN` - it is needed to create a `.jar` files.
+4. Register your account on [TWILIO](https://www.twilio.com)
+5. Generate your phone number and `ACCOUNT_SID` `AUTH_TOKEN`.
+6. Change the name of `sample-twilio.properties` file into `twilio.properties`.
+7. Add values to keys in this file.
+8. If you would like to run this project locally with **H2 database**:
+   * in `email-filtering-service` add filters according to `sample-data.sql` and name created file `data.sql` 
+   * in `message-service` add template and pattern similar to `sample-data.sql` and name created file `data.sql`
+9. If you would like to run this project with **PostgreSQL database** and **docker**:
+   * Create a file `.env` in `email-rest-client` - refer to `.sample-env` - this file wille be needed to create an environment 
+   variable during creating a docker container. 
+10. Go to the root of the project - `notification-microservices`. 
+11. Type `mvn clean package` in your terminal. 
+12. After successfully created `.jar` files you can run project in 2 ways:
+    * running project locally:
+      * go to each project `root catalog` and type `java -jar target/<application-name>`:
+      * building order:
+        * notification-eureka-server
+        * email-filtering-service
+        * message-service
+        * email-rest-client
+        * notification-service
+        * notification-gateway
+    * running project with docker compose:
+      * add entries in databases for `email-filtering-service` and `message-service`, please refer to `sample-data.sql` 
+      * go to the `root` of the project and type in your terminal `docker compose up` - it will create images 
 and containers for this project. 
-14. And that's it, you can make `URL's` calls listed below:
+13. And that's it, you can make `URL's` calls listed below:
      * http://localhost:8080/email/api/emails - for getting the list of received and filtered emails
      * http://localhost:8080/msg/api/messages - to get a list of all created messages
 
