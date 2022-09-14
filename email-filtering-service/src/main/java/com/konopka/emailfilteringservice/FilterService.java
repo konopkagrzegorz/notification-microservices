@@ -51,7 +51,7 @@ public class FilterService {
 
     private List<String> convertEmailDtoToBodyList(EmailDTO emailDTO) {
         if (emailDTO.getBody() == null)
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         String body = emailDTO.getBody()
                 .replace("\r", "")
                 .replace("\n","");
