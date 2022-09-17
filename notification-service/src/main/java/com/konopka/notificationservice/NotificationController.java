@@ -28,6 +28,9 @@ public class NotificationController {
     @Scheduled(cron = "0 30 17 * * *")
     public ResponseEntity<Void> notification() {
         List<MessageDTO> messages = messageClientService.getNotSentMessages();
+        if (messages.isEmpty())
+            return ResponseEntity.noContent().build();
+
         LocalDate now = LocalDate.now();
         List<MessageDTO> filtered = messages.stream().
                 filter(messageDTO -> ChronoUnit.DAYS.between(messageDTO.getSendDate(), now) >= 2L).toList();
