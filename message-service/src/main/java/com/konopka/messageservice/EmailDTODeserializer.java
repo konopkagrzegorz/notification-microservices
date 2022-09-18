@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Slf4j
@@ -24,7 +25,7 @@ public class EmailDTODeserializer implements Deserializer<EmailDTO> {
                 return null;
             }
             System.out.println("Deserializing...");
-            return objectMapper.readValue(new String(data, "UTF-8"), EmailDTO.class);
+            return objectMapper.readValue(new String(data, StandardCharsets.UTF_8), EmailDTO.class);
         } catch (Exception e) {
             throw new SerializationException("Error when deserializing byte[] to EmailDTO");
         }

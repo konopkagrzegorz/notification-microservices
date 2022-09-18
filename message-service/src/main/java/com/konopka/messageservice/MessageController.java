@@ -34,13 +34,6 @@ public class MessageController {
         return new ResponseEntity<>(messageDTO.get(),HttpStatus.ACCEPTED);
     }
 
-    @PutMapping("/message/{id}")
-    public ResponseEntity<Void> updateMessage(@PathVariable String id, @RequestBody MessageDTO messageDTO) {
-        log.debug("Updating message status {}", messageDTO);
-        messageService.update(messageDTO);
-        return ResponseEntity.ok().build();
-    }
-
     @GetMapping("/messages")
     public ResponseEntity<List<MessageDTO>> getMessages(@RequestParam(required = false) Status status) {
         log.debug("Fetching messages from {}", messageService.getClass().getSimpleName());
