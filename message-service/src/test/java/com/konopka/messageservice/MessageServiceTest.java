@@ -152,7 +152,20 @@ class MessageServiceTest {
 
     @Test
     void update() {
-        //TODO
+        Mockito.when(messageRepository.findByEmailUuid(any())).thenReturn(Optional.of(
+                new Message.MessageBuilder()
+                        .id(1L).status(Status.NOT_SENT).emailUuid("UUID-1").body("body").sendDate(LocalDate.now()).build()));
+
+        Mockito.when(messageRepository.save(any())).thenReturn(new Message.MessageBuilder()
+                .id(1L).status(Status.SENT).emailUuid("UUID-1").body("body").sendDate(LocalDate.now()).build());
+
+        Optional<MessageDTO> expected = Optional.of(new MessageDTO.MessageDTOBuilder()
+                        .status(Status.SENT).emailUuid("UUID-1").body("body").sendDate(LocalDate.now()).build());
+
+        Optional<MessageDTO> actual = messageService.update(new MessageDTO.MessageDTOBuilder()
+                .status(Status.SENT).emailUuid("UUID-1").body("body").sendDate(LocalDate.now()).build());
+
+        Assertions.assertThat(actual).isEqualTo(expected);
     }
 
     @Test
