@@ -36,6 +36,7 @@ public class MailServiceReceiver implements MailService {
         for (Message message : messages) {
             Message msg = gmailService.users().messages().get(user,message.getId()).execute();
             emails.add(mapper.messageToEmailDTO(msg));
+            log.info("Saved email with Uuid: {}",mapper.messageToEmailDTO(msg).getMessageId());
         }
         return emails;
     }

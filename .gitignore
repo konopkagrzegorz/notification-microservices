@@ -6,10 +6,13 @@ mvnw
 mvnw.cmd
 *.iml
 
-## POSTGRES VOLUMES
+## VOLUMES
 /postgres-email-filtering-service
 /postgres-email-rest-client
 /postgres-message-service
+/elasticsearch
+/filebeat/data
+/filebeat/registry
 
 ## PIVATE FILES
 credentials.json
@@ -17,3 +20,4 @@ data.sql
 .env
 .postgresql-env
 twilio.properties
+meta.json

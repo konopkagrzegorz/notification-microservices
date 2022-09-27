@@ -26,7 +26,7 @@ public class EmailController {
     @GetMapping("/emails")
     @Scheduled(cron = "0 20 17 * * *")
     public ResponseEntity<List<EmailDTO>> getEmails() throws IOException {
-        log.debug("Fetching emails from {}", emailService.getClass().getSimpleName());
+        log.info("Fetching emails from {}", emailService.getClass().getSimpleName());
         return ResponseEntity.ok(emailService.getNewMessages());
     }
 }
