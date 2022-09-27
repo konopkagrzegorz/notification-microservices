@@ -99,13 +99,20 @@ and check how calls you can make.
     * `filebeat.yml` in `filebeat` folder to: `root:root` with `-rw-r--r--` access
     * `logstash.conf` in `logstash/pipeline` folder to: `your_username:your_username` with `-rw-rw-r--` access
 15. During first time login into `kibana` under `http://localhost:5601` you will need to configure dashboard
-    * ![kibana-step-1](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step1.png)
-    * ![kibana-step-2](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step2.png)
-    * ![kibana-step-3](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step3.png)
-    * ![kibana-step-4](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step4.png)
-16. After configuration you can filter logs for instance:
-    * ![kibana-step-5](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step5.png)
+    * step - 1
+    ![kibana-step-1](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step1.png)
+    * step - 2
+    ![kibana-step-2](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step2.png)
+    * step - 3
+    ![kibana-step-3](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step3.png)
+    * step - 4
+     [kibana-step-4](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step4.png)
+16. After configuration, you can filter logs for instance:
+![kibana-step-5](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step5.png)
 
 ## EXAMPLE OF RUNNING APPLICATION
 
 ![sample-notification](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/sample-notification.png)
+
+## LICENSE
+Please refer to `LICENSE` file.
