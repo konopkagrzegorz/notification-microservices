@@ -21,7 +21,7 @@ public class MessageController {
         this.messageParsingService = messageParsingService;
     }
 
-    @PutMapping("/message")
+    @PostMapping("/message")
     public ResponseEntity<MessageDTO> getMessage(@RequestBody EmailDTO emailDTO) {
         if (messageService.findByEmailUuid(emailDTO.getMessageId()).isPresent()) {
             log.debug("Found {} in service", emailDTO);
@@ -33,6 +33,13 @@ public class MessageController {
         messageService.save(messageDTO.get());
         return new ResponseEntity<>(messageDTO.get(),HttpStatus.ACCEPTED);
     }
+
+    @PutMapping("/message")
+    public ResponseEntity<Void> updateMessage(@RequestBody MessageDTO messageDTO) {
+        messageService.update(messageDTO);
+        return ResponseEntity.ok().build();
+    }
+
 
     @GetMapping("/messages")
     public ResponseEntity<List<MessageDTO>> getMessages(@RequestParam(required = false) Status status) {

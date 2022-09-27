@@ -37,7 +37,7 @@ public class MessageClientService {
 
     public void updateMessage(MessageDTO messageDTO) {
         messageDTO.setStatus(Status.SENT);
-        ResponseEntity<Void> response = restTemplate.exchange(messageService + MESSAGE + "/{id}",
+        ResponseEntity<Void> response = restTemplate.exchange(messageService + MESSAGE,
                 HttpMethod.PUT, new HttpEntity<>(messageDTO), Void.class, messageDTO.getEmailUuid());
     }
 }
