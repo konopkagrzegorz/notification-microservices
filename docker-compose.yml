@@ -210,7 +210,7 @@ services:
     networks:
       - notification-microservices
     volumes:
-      - ./elasticsearch/data:/usr/share/elasticsearch/data:rw
+      - ./elasticsearch/data:/var/lib/elasticsearch/data:rw
 
   logstash:
     image: docker.elastic.co/logstash/logstash:7.2.0

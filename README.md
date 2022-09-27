@@ -6,6 +6,7 @@ it with usage of modern tools like:
 * eureka server for service discovery
 * spring api gateway
 * kafka with zookeeper
+* elasticsearch stack (available only when running with docker)
 
 
 General idea behind this project is that it is hard for me to remember all the things which
@@ -19,11 +20,11 @@ with appropriate `message body` two days before
 
 ### ARCHITECTURE OVERVIEW
 
-![architecture overview](https://github.com/konopkagrzegorz/notification-microservices/blob/master/notification-microservices-overview.svg)
+![architecture overview](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/notification-microservices-overview.svg)
 
 ### ACTION DIAGRAM
 
-![action diagram](https://github.com/konopkagrzegorz/notification-microservices/blob/master/action-diagram.svg)
+![action diagram](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/action-diagram.svg)
 
 ### EMAIL-FILTERING-SERVICE
 Main task of this microservice is to filter the emails received from the gmail api via the email-rest-client 
@@ -92,10 +93,19 @@ In a result all those microservices will be available under `http://localhost:80
       * add entries in databases for `email-filtering-service` and `message-service`, please refer to `sample-data.sql` 
       * go to the `root` of the project and type in your terminal `docker compose up` - it will create images 
 and containers for this project. 
-13. And that's it, you can make `URL's` calls listed below:
-     * http://localhost:8080/email/api/emails - for getting the list of received and filtered emails
-     * http://localhost:8080/msg/api/messages - to get a list of all created messages
+13. In `postman-collection` folder you can find a `notification-microservices.json` which you can import to **Postman**
+and check how calls you can make.
+14. For `elasticsearch stack` please change the ownership of files listed below:
+    * `filebeat.yml` in `filebeat` folder to: `root:root` with `-rw-r--r--` access
+    * `logstash.conf` in `logstash/pipeline` folder to: `your_username:your_username` with `-rw-rw-r--` access
+15. During first time login into `kibana` under `http://localhost:5601` you will need to configure dashboard
+    * ![kibana-step-1](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step1.png)
+    * ![kibana-step-2](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step2.png)
+    * ![kibana-step-3](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step3.png)
+    * ![kibana-step-4](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step4.png)
+16. After configuration you can filter logs for instance:
+    * ![kibana-step-5](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step5.png)
 
 ## EXAMPLE OF RUNNING APPLICATION
 
-![sample-notification](https://github.com/konopkagrzegorz/notification-microservices/blob/master/sample-notification.png)
+![sample-notification](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/sample-notification.png)
