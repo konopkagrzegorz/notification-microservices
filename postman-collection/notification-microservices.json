@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "3d9951c6-28ae-48ea-8d08-ccb95b7d0dd7",
+		"name": "NOTIFICATION-MICROSERVICES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "email-filtering-service",
+			"item": [
+				{
+					"name": "Check if email fulfill filters requirements",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"from\": \"example@example.com\",\n        \"subject\": \"Exampple subject\",\n        \"body\": \"Body\",\n        \"date\": \"Mon, 12 Sep 2022 19:29:39 +0200\",\n        \"messageId\": \"18332c00ef8c07fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/filtering/api/filter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"filtering",
+								"api",
+								"filter"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "email-rest-client",
+			"item": [
+				{
+					"name": "Get Emails",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/email/api/emails",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"email",
+								"api",
+								"emails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "message-service",
+			"item": [
+				{
+					"name": "Get messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/msg/api/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"msg",
+								"api",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get NOT SENT messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/msg/api/messages?status=NOT_SENT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"msg",
+								"api",
+								"messages"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "NOT_SENT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get SENT messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/msg/api/messages?status=SENT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"msg",
+								"api",
+								"messages"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "SENT"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"from\": \"example@example.com\",\n        \"subject\": \"Exampple subject\",\n        \"body\": \"Body\",\n        \"date\": \"Mon, 12 Sep 2022 19:29:39 +0200\",\n        \"messageId\": \"18332c00ef8c07fb\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/msg/api/message",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"msg",
+								"api",
+								"message"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"body\": \"Body\",\n        \"emailUuid\": \"1836bd007ffab57c\",\n        \"sendDate\": \"21-09-2022\",\n        \"status\": \"SENT\"\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/msg/api/message",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"msg",
+								"api",
+								"message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notification-service",
+			"item": [
+				{
+					"name": "Send SMS notification",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/notification/api/notify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notification",
+								"api",
+								"notify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
