@@ -106,7 +106,7 @@ and check what calls you can make.
     * step - 3
     ![kibana-step-3](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step3.png)
     * step - 4
-     [kibana-step-4](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step4.png)
+    ![kibana-step-4](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step4.png)
 16. After configuration, you can filter logs for instance:
 ![kibana-step-5](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step5.png)
 
