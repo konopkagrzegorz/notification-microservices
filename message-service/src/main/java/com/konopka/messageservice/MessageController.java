@@ -23,19 +23,23 @@ public class MessageController {
 
     @PostMapping("/message")
     public ResponseEntity<MessageDTO> getMessage(@RequestBody EmailDTO emailDTO) {
+        log.info("Calling the {} service to create a message", messageService.getClass().getSimpleName());
         if (messageService.findByEmailUuid(emailDTO.getMessageId()).isPresent()) {
-            log.debug("Found {} in service", emailDTO);
+            log.debug("Found EmailUuid: {} in service, no saving", emailDTO.getMessageId());
             return ResponseEntity.ok().build();
         }
         Optional<MessageDTO> messageDTO = messageParsingService.convertEmailDTOtoMessageDTO(emailDTO);
-        if (messageDTO.isEmpty())
+        if (messageDTO.isEmpty()) {
+            log.debug("Message body is empty, exiting");
             return ResponseEntity.noContent().build();
+        }
         messageService.save(messageDTO.get());
         return new ResponseEntity<>(messageDTO.get(),HttpStatus.ACCEPTED);
     }
 
     @PutMapping("/message")
     public ResponseEntity<Void> updateMessage(@RequestBody MessageDTO messageDTO) {
+        log.info("Calling the {} service to update a message", messageService.getClass().getSimpleName());
         messageService.update(messageDTO);
         return ResponseEntity.ok().build();
     }
@@ -43,9 +47,12 @@ public class MessageController {
 
     @GetMapping("/messages")
     public ResponseEntity<List<MessageDTO>> getMessages(@RequestParam(required = false) Status status) {
-        log.debug("Fetching messages from {}", messageService.getClass().getSimpleName());
-        if (Objects.nonNull(status))
+        if (Objects.nonNull(status)) {
+            log.info("Calling the {} service to get all messages, with status: {}",
+                    messageService.getClass().getSimpleName(), status);
             return ResponseEntity.ok(messageService.findAllMessagesWithStatus(status));
+        }
+        log.info("Calling the {} service to get all messages", messageService.getClass().getSimpleName());
         return ResponseEntity.ok(messageService.findAll());
     }
 }

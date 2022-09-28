@@ -1,5 +1,7 @@
 package com.konopka.messageservice;
 
+import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,7 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 @Service
 public class MessageParsingService {
 
@@ -24,10 +27,9 @@ public class MessageParsingService {
     }
 
 
-    public Optional<MessageDTO> convertEmailDTOtoMessageDTO(EmailDTO emailDTO) {
+    public Optional<MessageDTO> convertEmailDTOtoMessageDTO(@NonNull EmailDTO emailDTO) {
         List<KeyPattern> keywords = keywordsRepository.findByKeyword(emailDTO.getFrom());
         Optional<Template> template = templateRepository.findByAddress(emailDTO.getFrom());
-
         if (template.isPresent()) {
             String body = template.get().getBody();
             String date = null;
@@ -48,6 +50,7 @@ public class MessageParsingService {
                     }
                 }
             }
+            log.debug("Successfully converted Email with UUID: {} to a message", emailDTO.getMessageId());
             return Optional.of(new MessageDTO.MessageDTOBuilder()
                     .body(body)
                     .emailUuid(emailDTO.getMessageId())
@@ -55,6 +58,7 @@ public class MessageParsingService {
                     .status(Status.NOT_SENT)
                     .build());
         }
+        log.debug("Did not convert Email with UUID: {} to a message (not fulfilled requirements)", emailDTO.getMessageId());
         return Optional.empty();
     }
 }

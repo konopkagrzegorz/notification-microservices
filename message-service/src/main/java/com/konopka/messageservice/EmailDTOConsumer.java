@@ -29,7 +29,7 @@ public class EmailDTOConsumer {
 
     @KafkaListener(topics = "message-service-topic",groupId = "group_id")
     public void consumeMessage(EmailDTO message) {
-        log.debug("Calling {} to create and save a message {}", messageServiceApiHost, message.getMessageId());
+        log.debug("Received a message with uuid: {}", message.getMessageId());
         restTemplate.exchange(messageServiceApiHost + MESSAGE,
                 HttpMethod.PUT, new HttpEntity<>(message), MessageDTO.class);
     }

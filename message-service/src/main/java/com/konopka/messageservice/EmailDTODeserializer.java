@@ -21,12 +21,13 @@ public class EmailDTODeserializer implements Deserializer<EmailDTO> {
     public EmailDTO deserialize(String topic, byte[] data) {
         try {
             if (data == null) {
-                System.out.println("Null received at deserializing");
+                log.info("Null received at deserializing an email from: {}", topic);
                 return null;
             }
-            System.out.println("Deserializing...");
+            log.debug("Serializing an email form: {}", topic);
             return objectMapper.readValue(new String(data, StandardCharsets.UTF_8), EmailDTO.class);
         } catch (Exception e) {
+            log.error("Error when deserializing byte[] to EmailDTO");
             throw new SerializationException("Error when deserializing byte[] to EmailDTO");
         }
     }

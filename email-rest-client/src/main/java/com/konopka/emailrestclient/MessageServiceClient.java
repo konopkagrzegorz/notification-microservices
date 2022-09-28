@@ -26,7 +26,6 @@ public class MessageServiceClient implements MessageService {
 
     @Override
     public void saveMessage(EmailDTO emailDTO) {
-        log.debug("Calling {} to create and save a message {}", messageServiceApiHost, emailDTO.getMessageId());
         restTemplate.exchange(messageServiceApiHost + MESSAGE,
                 HttpMethod.PUT, new HttpEntity<>(emailDTO), MessageDTO.class);
     }

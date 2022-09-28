@@ -2,12 +2,14 @@ package com.konopka.notificationservice;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.Properties;
 
+@Slf4j
 @Service
 public class SmsServiceClient {
 
@@ -37,6 +39,7 @@ public class SmsServiceClient {
     }
 
     public void sendSMS(MessageDTO messageDTO) {
+       log.debug("Sending an SMS from message: {}", messageDTO);
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message.creator(new com.twilio.type.PhoneNumber(PHONE_NUMBER_TO),
                         new com.twilio.type.PhoneNumber(PHONE_NUMBER), messageDTO.getBody())

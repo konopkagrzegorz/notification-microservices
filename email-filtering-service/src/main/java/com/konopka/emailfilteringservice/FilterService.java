@@ -22,18 +22,19 @@ public class FilterService {
     Optional<FilterDTO> getKeyByFromAndValue(EmailDTO emailDTO) {
         List<String> from = convertEmailDtoToFromList(emailDTO);
         List<String> value = convertEmailDtoToBodyList(emailDTO);
-
         Optional<FilterDTO> filterDTO = Optional.empty();
         for (String key : from) {
             if (filterRepository.findByMajor(key).isPresent()) {
                 for (String val : value) {
                     if (filterRepository.findByMajorAndVal(key,val).isPresent()) {
                         filterDTO = Optional.of(filterMapper.mapFilterToFilterDTO(filterRepository.findByMajorAndVal(key,val).get()));
-                        log.debug("EmailDTO: {} contains keys: {}, {}", emailDTO,key,val);
+                        log.debug("EmailUuid: {} contains keys: {}, {}", emailDTO.getMessageId(),key,val);
                         break;
                     }
 
                 }
+            } else {
+                log.debug("EmailUuid: {} doesn't fulfill filtering requirements", emailDTO.getMessageId());
             }
         }
         return filterDTO;

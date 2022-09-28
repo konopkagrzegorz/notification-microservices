@@ -36,11 +36,12 @@ public class EmailService {
             List<EmailDTO> emails = mailServiceReceiver.handleReceiveEmail();
             for (EmailDTO emailDTO : emails) {
                 emailRepository.findEmailByMessageId(emailDTO.getMessageId())
-                        .ifPresentOrElse((dto -> log.debug("{} already exists in repository",
+                        .ifPresentOrElse((dto -> log.debug("EmailUuid: {} already exists in repository",
                                 emailDTO.getMessageId())), () -> {
                             if (Boolean.TRUE.equals(emailFilteringServiceClient.isMailInFilteringService(emailDTO))) {
                                 Email email = emailMapper.emailDtoToEmail(emailDTO);
                                 emailRepository.save(email);
+                                log.debug("EmailUuid: {} saved in repository", email.getMessageId());
                                 messageService.saveMessage(emailDTO);
                             }
                 });
