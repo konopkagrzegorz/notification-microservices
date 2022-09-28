@@ -94,7 +94,7 @@ In a result all those microservices will be available under `http://localhost:80
       * go to the `root` of the project and type in your terminal `docker compose up` - it will create images 
 and containers for this project. 
 13. In `postman-collection` folder you can find a `notification-microservices.json` which you can import to **Postman**
-and check how calls you can make.
+and check what calls you can make.
 14. For `elasticsearch stack` please change the ownership of files listed below:
     * `filebeat.yml` in `filebeat` folder to: `root:root` with `-rw-r--r--` access
     * `logstash.conf` in `logstash/pipeline` folder to: `your_username:your_username` with `-rw-rw-r--` access
