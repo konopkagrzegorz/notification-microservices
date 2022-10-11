@@ -60,6 +60,7 @@ for instance:
 * `email-filtering-service` is running on port `8082` and has an endpoint `/filtering/api`
 * `email-rest-client` is running on port `8081` and has an endpoint `/email/api`
 * `message-service` is running on port `8083` and has an endpoint `/msg/api`
+* `notification-service` is running on port `8084` and has an endpoint `/notification/api`
 
 In a result all those microservices will be available under `http://localhost:8080`
 
