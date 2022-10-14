@@ -73,8 +73,8 @@ public class SwaggerConfig {
     private ApiInfo createApiInfo() {
         List<VendorExtension> vendorExtension = Collections.emptyList();
         return new ApiInfo(
-                "Email Filtering Service",
-                "Service used for filtering received mails",
+                "Message Service",
+                "Service used for generating messages from received emails",
                 "1.0",
                 "MIT License",
                 new Contact("Grzegorz Konopka", "https://www.github.com/konopkagrzegorz","konopkagrzeg@gmail.com"),

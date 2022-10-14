@@ -1,5 +1,8 @@
 package com.konopka.messageservice;
 
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,11 @@ public class MessageController {
     }
 
     @PostMapping("/message")
+    @ApiResponses({@ApiResponse(message = "OK", code = 200, response = MessageDTO.class),
+                  @ApiResponse(message = "Accepted", code = 204, response = MessageDTO.class),
+                  @ApiResponse(message = "No Content", code = 204),
+                  @ApiResponse(message = "Bad request",code = 400),
+                  @ApiResponse(message = "Server error",code = 500)})
     public ResponseEntity<MessageDTO> getMessage(@RequestBody EmailDTO emailDTO) {
         log.info("Calling the {} service to create a message", messageService.getClass().getSimpleName());
         if (messageService.findByEmailUuid(emailDTO.getMessageId()).isPresent()) {
@@ -38,6 +46,9 @@ public class MessageController {
     }
 
     @PutMapping("/message")
+    @ApiResponses({@ApiResponse(message = "OK", code = 200),
+            @ApiResponse(message = "Bad request",code = 400),
+            @ApiResponse(message = "Server error",code = 500)})
     public ResponseEntity<Void> updateMessage(@RequestBody MessageDTO messageDTO) {
         log.info("Calling the {} service to update a message", messageService.getClass().getSimpleName());
         messageService.update(messageDTO);
@@ -46,7 +57,12 @@ public class MessageController {
 
 
     @GetMapping("/messages")
-    public ResponseEntity<List<MessageDTO>> getMessages(@RequestParam(required = false) Status status) {
+    @ApiResponses({@ApiResponse(message = "OK", code = 200, response = MessageDTO.class),
+                   @ApiResponse(message = "Bad request",code = 400),
+                   @ApiResponse(message = "Server error",code = 500)})
+    public ResponseEntity<List<MessageDTO>> getMessages(
+            @ApiParam(name = "Status to filter", example = "NOT_SENT")
+            @RequestParam(required = false) Status status) {
         if (Objects.nonNull(status)) {
             log.info("Calling the {} service to get all messages, with status: {}",
                     messageService.getClass().getSimpleName(), status);
