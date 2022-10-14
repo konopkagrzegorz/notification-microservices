@@ -6,6 +6,9 @@ spring:
     active: dev
   application:
     name: message-service
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 eureka:
   client:

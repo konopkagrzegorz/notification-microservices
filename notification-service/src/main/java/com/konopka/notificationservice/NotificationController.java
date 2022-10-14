@@ -1,5 +1,7 @@
 package com.konopka.notificationservice;
 
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,6 +28,9 @@ public class NotificationController {
 
     @GetMapping("/notify")
     @Scheduled(cron = "0 30 17 * * *")
+    @ApiResponses({@ApiResponse(message = "OK", code = 200),
+                   @ApiResponse(message = "No Content", code = 204),
+                   @ApiResponse(message = "Server error",code = 500)})
     public ResponseEntity<Void> notification() {
         List<MessageDTO> messages = messageClientService.getNotSentMessages();
         if (messages.isEmpty())

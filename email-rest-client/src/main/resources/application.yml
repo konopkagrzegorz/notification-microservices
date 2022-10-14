@@ -9,6 +9,9 @@ spring:
   gmail:
     refresh:
       token: ${GMAIL_REFRESH_TOKEN}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 httpClients:
   email-filtering-service: http://email-filtering-service/filtering/api

@@ -1,5 +1,8 @@
 package com.konopka.emailrestclient;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +27,13 @@ public class EmailController {
     }
 
     @GetMapping("/emails")
-    @Scheduled(cron = "0 20 17 * * *")
+    @Scheduled(cron = "0 20 15 * * *")
+    @ApiOperation(
+            value = "Check is mail contains specific keys",
+            produces = "application/json",
+            consumes = "application/json")
+    @ApiResponses({@ApiResponse(message = "OK", code = 200, response = List.class),
+                   @ApiResponse(message = "Server error",code = 500)})
     public ResponseEntity<List<EmailDTO>> getEmails() throws IOException {
         log.info("Fetching emails from {}", emailService.getClass().getSimpleName());
         return ResponseEntity.ok(emailService.getNewMessages());
