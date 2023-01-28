@@ -1,3 +1,9 @@
 spring:
   profiles:
     active: dev
+
+springdoc:
+  swagger-ui:
+    path: "/notification/api/docs"
+  api-docs:
+    path: "/notification/api/api-docs"

@@ -7,6 +7,12 @@ spring:
   application:
     name: email-filtering-service
 
+springdoc:
+  swagger-ui:
+    path: "/filtering/api/docs"
+  api-docs:
+    path: "/filtering/api/api-docs"
+
 eureka:
   client:
     register-with-eureka: true

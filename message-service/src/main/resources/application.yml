@@ -7,6 +7,11 @@ spring:
   application:
     name: message-service
 
+springdoc:
+  swagger-ui:
+    path: "/msg/api/docs"
+  api-docs:
+    path: "/msg/api/api-docs"
 eureka:
   client:
     register-with-eureka: true

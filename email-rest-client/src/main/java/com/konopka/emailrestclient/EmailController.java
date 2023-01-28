@@ -1,5 +1,12 @@
 package com.konopka.emailrestclient;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +30,14 @@ public class EmailController {
         this.emailService = emailService;
     }
 
+    @Operation(description = "Fetch only new emails from Gmail API")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = EmailDTO.class)))
+                    }),
+            @ApiResponse(responseCode = "500", description = "Server error",
+                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request")))
+    })
     @GetMapping("/emails")
     @Scheduled(cron = "0 20 17 * * *")
     public ResponseEntity<List<EmailDTO>> getEmails() throws IOException {

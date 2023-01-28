@@ -10,6 +10,12 @@ spring:
     refresh:
       token: ${GMAIL_REFRESH_TOKEN}
 
+springdoc:
+  swagger-ui:
+    path: "/email/api/docs"
+  api-docs:
+    path: "/email/api/api-docs"
+
 httpClients:
   email-filtering-service: http://email-filtering-service/filtering/api
   message-service: http://message-service/msg/api

@@ -1,5 +1,12 @@
 package com.konopka.notificationservice;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,6 +31,13 @@ public class NotificationController {
         this.smsServiceClient = smsServiceClient;
     }
 
+    @Operation(description = "Send SMS notification for messages which meets the deadline and are NOT SENT")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK",
+                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request"))),
+            @ApiResponse(responseCode = "500", description = "Server error",
+                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request")))
+    })
     @GetMapping("/notify")
     @Scheduled(cron = "0 30 17 * * *")
     public ResponseEntity<Void> notification() {
