@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.konopka</groupId>
 	<artifactId>notification-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>notification-service</name>
 	<description>SMS notification service</description>
 	<properties>
@@ -140,10 +140,6 @@
 						</goals>
 					</execution>
 				</executions>
-				<configuration>
-					<excludes>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 		<finalName>notification-service</finalName>

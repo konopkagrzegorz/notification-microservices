@@ -30,7 +30,6 @@ public class SmsServiceClient {
         AUTH_TOKEN = properties.getProperty(NotificationServiceConfig.AUTH_TOKEN_KEY);
         PHONE_NUMBER = properties.getProperty(NotificationServiceConfig.PHONE_NUMBER_KEY);
         PHONE_NUMBER_TO = properties.getProperty(NotificationServiceConfig.PHONE_NUMBER_TO_KEY);
-
     }
 
     @Autowired
@@ -41,9 +40,9 @@ public class SmsServiceClient {
     public void sendSMS(MessageDTO messageDTO) {
        log.debug("Sending an SMS from message: {}", messageDTO);
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
-        Message message = Message.creator(new com.twilio.type.PhoneNumber(PHONE_NUMBER_TO),
-                        new com.twilio.type.PhoneNumber(PHONE_NUMBER), messageDTO.getBody())
+        Message.creator(new com.twilio.type.PhoneNumber(PHONE_NUMBER_TO),
+                        new com.twilio.type.PhoneNumber(PHONE_NUMBER),
+                        messageDTO.getBody())
                 .create();
-
     }
 }

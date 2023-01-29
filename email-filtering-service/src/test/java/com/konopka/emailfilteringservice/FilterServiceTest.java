@@ -50,4 +50,41 @@ class FilterServiceTest {
         Assertions.assertThat(actual).isPresent();
         Assertions.assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    void getKeyByFromAndValue_shouldReturnEmptyOptionalWhenValueIsNotPresent() {
+        EmailDTO given = new EmailDTO.EmailDTOBuilder()
+                .from("Example Example <example@example.com>")
+                .body("Payment")
+                .date(LocalDate.now().toString())
+                .messageId(UUID.randomUUID().toString())
+                .subject("Example")
+                .build();
+
+//        Mockito.when(filterMapper.mapFilterToFilterDTO(
+//                        new Filter.FilterBuilder().id(1L).major("example@example.com").val("Payment").build()))
+//                .thenReturn(new FilterDTO.FilterDTOBuilder().major("example@example.com").val("Payment").build());
+        Mockito.when(filterRepository.findByMajor("Example")).thenReturn(Optional.empty(), Optional.empty());
+        Mockito.when(filterRepository.findByMajor("example@example.com")).thenReturn(Optional.of(
+                new Filter.FilterBuilder().id(1L).major("example@example.com").val("Payment").build()));
+        Mockito.when(filterRepository.findByMajorAndVal("example@example.com", "Payment")).thenReturn(Optional.empty());
+
+        Optional<FilterDTO> actual = filterService.getKeyByFromAndValue(given);
+
+        Assertions.assertThat(actual).isEmpty();
+    }
+
+    @Test
+    void getKeyByFromAndValue_shouldReturnEmptyOptional() {
+        EmailDTO given = new EmailDTO.EmailDTOBuilder()
+                .from("Example Example <example@example.com>")
+                .date(LocalDate.now().toString())
+                .messageId(UUID.randomUUID().toString())
+                .subject("Example")
+                .build();
+
+        Optional<FilterDTO> actual = filterService.getKeyByFromAndValue(given);
+
+        Assertions.assertThat(actual).isEmpty();
+    }
 }

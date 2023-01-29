@@ -26,4 +26,60 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.konopka</groupId>
+            <artifactId>email-filtering-service</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.konopka</groupId>
+            <artifactId>email-rest-client</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.konopka</groupId>
+            <artifactId>message-service</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.konopka</groupId>
+            <artifactId>notification-service</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.7</version>
+                <executions>
+                    <execution>
+                        <id>report-aggregate</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report-aggregate</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>com/konopka/**/*DTO.*</exclude>
+                                <exclude>com/konopka/**/*DTO*.*</exclude>
+                                <exclude>com/konopka/**/Filter.*</exclude>
+                                <exclude>com/konopka/**/*Builder.*</exclude>
+                                <exclude>com/konopka/**/KeyPattern.*</exclude>
+                                <exclude>com/konopka/**/Template.*</exclude>
+                                <exclude>com/konopka/**/Message.*</exclude>
+                                <exclude>com/konopka/**/OpenApiConfiguration.*</exclude>
+                                <exclude>com/konopka/**/Email.*</exclude>
+                                <exclude>com/konopka/**/*Application.*</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
