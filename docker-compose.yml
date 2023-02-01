@@ -144,6 +144,22 @@ services:
       - ./postgres-email-filtering-service:/var/lib/postgresql/data
       - ./email-filtering-service/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
 
+  notification-microservices-client:
+    container_name: notification-microservices-client
+    build:
+      context: ./notification-microservices-client
+      dockerfile: Dockerfile
+    networks:
+      - notification-microservices
+    ports:
+      - "3000:80"
+    depends_on:
+      - message-service
+      - notification-eureka-server
+      - email-filtering-service
+      - email-rest-client
+      - notification-gateway
+
   db-email-rest-client:
     container_name: db-email-rest-client
     image: postgres:14.0
