@@ -1,0 +1,3 @@
+POSTGRES_URL="jdbc:postgresql://db-email-filtering-service:5432/postgres"
+POSTGRES_USERNAME="postgres"
+POSTGRES_PASSWORD="postgres"

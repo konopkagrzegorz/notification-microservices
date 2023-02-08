@@ -1,1 +1,4 @@
 GMAIL_REFRESH_TOKEN="SAMPLE-GMAIL-REFRESH-TOKEN"
+POSTGRES_URL="jdbc:postgresql://db-email-rest-client:5432/postgres"
+POSTGRES_USERNAME="postgres"
+POSTGRES_PASSWORD="postgres"
