@@ -31,9 +31,31 @@ public class MessageController {
 
     @Operation(description = "Create message")
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Created",
+                    content = @Content(examples = @ExampleObject(name = "", value = ""))),
+            @ApiResponse(responseCode = "204", description = "No content",
+                    content = @Content(examples = @ExampleObject(name = "", value = "No content"))),
+            @ApiResponse(responseCode = "400", description = "Bad request",
+                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request"))),
+            @ApiResponse(responseCode = "500", description = "Server error",
+                    content = @Content(examples = @ExampleObject(name = "", value = "Server error")))
+    })
+    @PostMapping("/message")
+    public ResponseEntity<MessageDTO> createMessage(@Parameter( schema = @Schema(implementation = MessageDTO.class)) @RequestBody MessageDTO messageDTO) {
+        log.info("Calling the {} service to create a message", messageService.getClass().getSimpleName());
+        if (messageService.findByEmailUuid(messageDTO.getEmailUuid()).isPresent()) {
+            log.debug("Found EmailUuid: {} in service, no saving", messageDTO.getEmailUuid());
+            return ResponseEntity.noContent().build();
+        }
+        messageService.save(messageDTO);
+        return new ResponseEntity<>(messageDTO,HttpStatus.CREATED);
+    }
+
+    @Operation(description = "Create message")
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",
                     content = @Content(examples = @ExampleObject(name = "", value = ""))),
-            @ApiResponse(responseCode = "201", description = "Accepted",
+            @ApiResponse(responseCode = "202", description = "Accepted",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = MessageDTO.class))
                     }),
             @ApiResponse(responseCode = "204", description = "No content",
@@ -44,7 +66,7 @@ public class MessageController {
                     content = @Content(examples = @ExampleObject(name = "", value = "Server error")))
     })
     @PostMapping("/message")
-    public ResponseEntity<MessageDTO> getMessage(@Parameter( schema = @Schema(implementation = EmailDTO.class)) @RequestBody EmailDTO emailDTO) {
+    public ResponseEntity<MessageDTO> createMessageFromEmail(@Parameter( schema = @Schema(implementation = EmailDTO.class)) @RequestBody EmailDTO emailDTO) {
         log.info("Calling the {} service to create a message", messageService.getClass().getSimpleName());
         if (messageService.findByEmailUuid(emailDTO.getMessageId()).isPresent()) {
             log.debug("Found EmailUuid: {} in service, no saving", emailDTO.getMessageId());

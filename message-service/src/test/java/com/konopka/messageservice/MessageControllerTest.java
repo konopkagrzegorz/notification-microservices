@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
@@ -28,27 +29,57 @@ class MessageControllerTest {
     MessageController messageController;
 
     @Test
-    void getMessage_shouldReturnEmptyResponseEntity() {
+    void createMessage_shouldReturnCreated() {
+        Mockito.when(messageService.findByEmailUuid(any())).thenReturn(Optional.empty());
+        MessageDTO messageDTO = MessageDTO.builder()
+                .body("Exampld")
+                .emailUuid("121uiud")
+                .sendDate(LocalDate.now())
+                .status(Status.NOT_SENT).build();
+
+        ResponseEntity<MessageDTO> expected = new ResponseEntity<>(messageDTO, HttpStatus.CREATED);
+        ResponseEntity<MessageDTO> actual = messageController.createMessage(messageDTO);
+
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void createMessageWithMessage_shouldReturnNoContent() {
+        MessageDTO messageDTO = MessageDTO.builder()
+                .body("Exampld")
+                .emailUuid("121uiud")
+                .sendDate(LocalDate.now())
+                .status(Status.NOT_SENT).build();
+        Mockito.when(messageService.findByEmailUuid(any())).thenReturn(Optional.of(messageDTO));
+
+        ResponseEntity<MessageDTO> expected = ResponseEntity.noContent().build();
+        ResponseEntity<MessageDTO> actual = messageController.createMessage(messageDTO);
+
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void createMessage_shouldReturnEmptyResponseEntity() {
         Mockito.when(messageService.findByEmailUuid(any())).thenReturn(Optional.of(new MessageDTO()));
 
         ResponseEntity<MessageDTO> expected = ResponseEntity.ok().build();
-        ResponseEntity<MessageDTO> actual = messageController.getMessage(new EmailDTO());
+        ResponseEntity<MessageDTO> actual = messageController.createMessageFromEmail(new EmailDTO());
 
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    void getMessage_shouldReturnNoContent() {
+    void createMessage_shouldReturnNoContent() {
         Mockito.when(messageService.findByEmailUuid(any())).thenReturn(Optional.empty());
 
         ResponseEntity<MessageDTO> expected = ResponseEntity.noContent().build();
-        ResponseEntity<MessageDTO> actual = messageController.getMessage(new EmailDTO());
+        ResponseEntity<MessageDTO> actual = messageController.createMessageFromEmail(new EmailDTO());
 
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 
     @Test
-    void getMessage_shouldReturnAccepted() {
+    void createMessage_shouldReturnAccepted() {
         MessageDTO messageDTO = new MessageDTO.MessageDTOBuilder()
                 .body("body")
                 .emailUuid("uuid")
@@ -62,7 +93,7 @@ class MessageControllerTest {
         Mockito.when(messageService.save(messageDTO)).thenReturn(Optional.of(messageDTO));
 
         ResponseEntity<MessageDTO> expected = ResponseEntity.accepted().body(messageDTO);
-        ResponseEntity<MessageDTO> actual = messageController.getMessage(new EmailDTO());
+        ResponseEntity<MessageDTO> actual = messageController.createMessageFromEmail(new EmailDTO());
 
         Assertions.assertThat(actual).isEqualTo(expected);
     }
