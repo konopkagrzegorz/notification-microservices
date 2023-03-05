@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -46,8 +47,8 @@ class MessageControllerTest {
     @Test
     void createMessageWithMessage_shouldReturnNoContent() {
         MessageDTO messageDTO = MessageDTO.builder()
-                .body("Exampld")
-                .emailUuid("121uiud")
+                .body("Example")
+                .emailUuid(UUID.randomUUID().toString())
                 .sendDate(LocalDate.now())
                 .status(Status.NOT_SENT).build();
         Mockito.when(messageService.findByEmailUuid(any())).thenReturn(Optional.of(messageDTO));

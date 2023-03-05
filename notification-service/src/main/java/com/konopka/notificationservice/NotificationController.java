@@ -1,17 +1,15 @@
 package com.konopka.notificationservice;
 
+import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
@@ -19,7 +17,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @RestController
-@RequestMapping("/notification/api")
 public class NotificationController {
 
     private final MessageClientService messageClientService;
@@ -31,6 +28,9 @@ public class NotificationController {
         this.smsServiceClient = smsServiceClient;
     }
 
+    @Timed(value = "notification.notify",
+            description = "Total execution time for sending SMS notification for NOT_SENT emails",
+            percentiles = {0.5, 0.7, 0.9, 0.95})
     @Operation(description = "Send SMS notification for messages which meets the deadline and are NOT SENT")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",

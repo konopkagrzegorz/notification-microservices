@@ -1,5 +1,7 @@
 server:
   port: 8082
+  servlet:
+    context-path: "/filtering/api"
 
 spring:
   profiles:
@@ -9,9 +11,9 @@ spring:
 
 springdoc:
   swagger-ui:
-    path: "/filtering/api/docs"
+    path: "/docs"
   api-docs:
-    path: "/filtering/api/api-docs"
+    path: "/api-docs"
 
 eureka:
   client:

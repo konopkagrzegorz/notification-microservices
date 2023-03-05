@@ -1,21 +1,21 @@
 package com.konopka.emailfilteringservice;
 
+import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
-import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/filtering/api")
 public class FilteringController {
 
     private final FilterService filterService;
@@ -25,6 +25,9 @@ public class FilteringController {
         this.filterService = filterService;
     }
 
+    @Timed(value = "filter.email",
+            description = "Filter - Total execution time of filtering an email",
+            percentiles = {0.5, 0.7, 0.9, 0.95})
     @Operation(description = "Checks if given email match the regex pattern")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",

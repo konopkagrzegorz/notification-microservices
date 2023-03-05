@@ -1,5 +1,7 @@
+import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
+import AddNewMessage from "./forms/AddNewMessage";
 
 
 const columns = [
@@ -38,6 +40,7 @@ export default function MessageList() {
   }, []);
 
   return (
+    <div>
     <div style={{
         height: 400,
         width: "65%",
@@ -51,6 +54,8 @@ export default function MessageList() {
       rowsPerPageOptions={[]}
       rows={messages}
       columns={columns} />
+    </div>
+    <AddNewMessage/>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 package com.konopka.messageservice;
 
+import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -19,7 +20,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("/msg/api")
+@CrossOrigin(origins = "*")
 public class MessageController {
     private final MessageService messageService;
     private final MessageParsingService messageParsingService;
@@ -29,6 +30,9 @@ public class MessageController {
         this.messageParsingService = messageParsingService;
     }
 
+    @Timed(value = "create.message.manually",
+    description = "Create message - Total execution time of saving a message",
+    percentiles = {0.5, 0.7, 0.9, 0.95})
     @Operation(description = "Create message")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created",
@@ -40,7 +44,7 @@ public class MessageController {
             @ApiResponse(responseCode = "500", description = "Server error",
                     content = @Content(examples = @ExampleObject(name = "", value = "Server error")))
     })
-    @PostMapping("/message")
+    @PostMapping("/create")
     public ResponseEntity<MessageDTO> createMessage(@Parameter( schema = @Schema(implementation = MessageDTO.class)) @RequestBody MessageDTO messageDTO) {
         log.info("Calling the {} service to create a message", messageService.getClass().getSimpleName());
         if (messageService.findByEmailUuid(messageDTO.getEmailUuid()).isPresent()) {
@@ -51,6 +55,9 @@ public class MessageController {
         return new ResponseEntity<>(messageDTO,HttpStatus.CREATED);
     }
 
+    @Timed(value = "create.message.from.emails",
+            description = "Create message - Total execution time of saving a message",
+            percentiles = {0.5, 0.7, 0.9, 0.95})
     @Operation(description = "Create message")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",
@@ -81,6 +88,9 @@ public class MessageController {
         return new ResponseEntity<>(messageDTO.get(),HttpStatus.ACCEPTED);
     }
 
+    @Timed(value = "update.message",
+            description = "Create message - Total execution time of saving a message",
+            percentiles = {0.5, 0.7, 0.9, 0.95})
     @Operation(description = "Update message")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",
@@ -98,6 +108,9 @@ public class MessageController {
         return ResponseEntity.ok().build();
     }
 
+    @Timed(value = "get.messages",
+            description = "Create message - Total execution time of saving a message",
+            percentiles = {0.5, 0.7, 0.9, 0.95})
     @Operation(description = "Get messages")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",
