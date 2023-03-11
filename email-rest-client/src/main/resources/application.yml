@@ -32,6 +32,14 @@ eureka:
     prefer-ip-address: true
 
 management:
+  endpoint:
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    export:
+      prometheus:
+        enabled: true
   endpoints:
     web:
       exposure:

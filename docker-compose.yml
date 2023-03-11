@@ -17,6 +17,7 @@ services:
       dockerfile: Dockerfile
     networks:
       - notification-microservices
+    hostname: email-filtering-service
     env_file:
       - ./email-filtering-service/.env
     environment:
@@ -40,6 +41,7 @@ services:
       dockerfile: Dockerfile
     networks:
       - notification-microservices
+    hostname: email-rest-client
     env_file:
       - ./email-rest-client/.env
     environment:
@@ -70,6 +72,7 @@ services:
       dockerfile: Dockerfile
     networks:
       - notification-microservices
+    hostname: message-service
     env_file:
       - ./message-service/.env
     environment:
@@ -96,6 +99,7 @@ services:
       dockerfile: Dockerfile
     networks:
       - notification-microservices
+    hostname: notification-service
     environment:
       - eureka.client.service-url.defaultZone=http://notification-eureka-server:8761/eureka/
       - spring.profiles.active=docker
@@ -286,12 +290,17 @@ services:
     image: grafana/grafana
     container_name: grafana
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ADMIN_PASSWORD=root
       - GF_USERS_ALLOW_SIGN_UP=false
     ports:
       - "4000:3000"
     networks:
       - notification-microservices
+    depends_on:
+      - prometheus
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/var/lib/grafana/dashboards
 
 networks:
   notification-microservices:

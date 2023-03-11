@@ -8,24 +8,24 @@ global:
 
 scrape_configs:
   - job_name: "filtering-service"
-    metrics_path: 'prometheus'
+    metrics_path: '/filtering/api/actuator/prometheus'
     static_configs:
-      - targets: ['localhost:8081']
+      - targets: ['email-filtering-service:8082']
 
   - job_name: "email-rest-client"
-    metrics_path: 'prometheus'
+    metrics_path: '/email/api/actuator/prometheus'
     static_configs:
-      - targets: ['localhost:8082']
+      - targets: ['email-rest-client:8081']
 
   - job_name: "message-service"
-    metrics_path: 'prometheus'
+    metrics_path: '/msg/api/actuator/prometheus'
     static_configs:
-      - targets: ['localhost:8083']
+      - targets: ['message-service:8083']
 
   - job_name: "notification-service"
-    metrics_path: 'prometheus'
+    metrics_path: '/notification/api/actuator/prometheus'
     static_configs:
-      - targets: ['localhost:8084']
+      - targets: ['notification-service:8084']
 
   - job_name: "prometheus"
     static_configs:

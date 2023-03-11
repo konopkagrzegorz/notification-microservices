@@ -1,11 +1,42 @@
-spring:
-  profiles:
-    active: dev
+server:
+  port: 8084
   servlet:
     context-path: "/notification/api"
+
+spring:
+  application:
+    name: notification-service
+  profiles:
+    active: dev
 
 springdoc:
   swagger-ui:
     path: "/docs"
   api-docs:
     path: "/api-docs"
+
+httpClients:
+  message-service: http://message-service/msg/api
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+management:
+  endpoint:
+    metrics:
+      enabled: true
+      export:
+        prometheus:
+          enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"

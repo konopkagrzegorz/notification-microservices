@@ -19,6 +19,3 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: com.konopka.messageservice.EmailDTODeserializer
     bootstrap-servers: localhost:9092
-
-httpClients:
-  message-service: http://message-service/msg/api
