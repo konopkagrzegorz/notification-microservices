@@ -7,6 +7,8 @@ it with usage of modern tools like:
 * spring api gateway
 * kafka with zookeeper
 * elasticsearch stack (available only when running with docker)
+* prometheus (avaiable only when running with docker)
+* grafana (available only when running with docker)
 
 
 General idea behind this project is that it is hard for me to remember all the things which
@@ -111,6 +113,19 @@ and check what calls you can make.
 16. After configuration, you can filter logs for instance:
 ![kibana-step-5](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/kibana-step5.png)
 
+17. Grafana provisioning
+    * visit `http://localhost:4000`
+    * login with credentials `user: admin, password: root`
+      ![grafana-login](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/grafana-login.png)
+    * go to `Dashoard` and `Import dashboard`
+    * import `notifiation-microservices.json` from `./grafana/provisioning/dashboards/` </br>
+    After importing you should see dashboard similar to this one:
+      ![grafana-import](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/grafana-import.png)
+18. Prometheus
+    * visit `http://localhost:9090`
+    * you can check available services under `http://localhost:9090/targets`
+      ![prometheus-targets](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/prometheus-targets.png)
+    
 ## EXAMPLE OF RUNNING APPLICATION
 
 ![sample-notification](https://github.com/konopkagrzegorz/notification-microservices/blob/master/images/sample-notification.png)
