@@ -300,7 +300,7 @@ services:
       - prometheus
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
-      - ./grafana/provisioning/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
 
 networks:
   notification-microservices:

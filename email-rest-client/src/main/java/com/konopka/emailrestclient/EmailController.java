@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EmailController {
 
     private final EmailService emailService;
@@ -45,5 +47,11 @@ public class EmailController {
     public ResponseEntity<List<EmailDTO>> getEmails() throws IOException {
         log.info("Fetching emails from {}", emailService.getClass().getSimpleName());
         return ResponseEntity.ok(emailService.getNewMessages());
+    }
+
+    @GetMapping("/list-emails")
+    public ResponseEntity<List<EmailDTO>> getFetchedEmails() {
+        log.info("Fetching emails directly from DB from {}", emailService.getClass().getSimpleName());
+        return ResponseEntity.ok(emailService.getEmails());
     }
 }

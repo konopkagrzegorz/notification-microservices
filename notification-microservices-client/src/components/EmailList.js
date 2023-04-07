@@ -17,17 +17,17 @@ const columns = [
   {
     field: "messageId",
     headerName: "ID",
-    width: 160,
+    width: 200,
   },
   {
     field: "from",
     headerName: "From",
-    width: 250,
+    width: 300,
   },
   {
     field: "body",
     headerName: "Body",
-    width: 1000,
+    width: 800,
   },
   {
     field: "date",
@@ -43,7 +43,7 @@ export default function EmailList() {
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {
-      fetch("http://localhost:8080/email/api/emails")
+      fetch("http://localhost:8080/email/api/list-emails")
       .then(response => response.json())
       .then(data => setEmails(data));
   }, []);

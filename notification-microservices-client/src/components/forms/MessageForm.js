@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import e from "cors";
 
 const FormContainer = styled.form`
     display: flex;
@@ -36,11 +37,19 @@ function MessageForm({ onAdd }) {
             sendDate: ''
         },
         onSubmit: (values) => {
-            axios.post("http://localhost:8080/msg/api/create",JSON.stringify(sample), { headers} )
-            .then(console.log(JSON.stringify(values)))
+            var dateToRevert = values.sendDate.split("-");
+            var parsedDate = dateToRevert[2] + "-" + dateToRevert[1] + "-" + dateToRevert[0];
+
+            const parsedMessage = {
+                body: values.body,
+                emailUuid: values.emailUuid,
+                status: values.status,
+                sendDate: parsedDate
+            };
+            return axios.post("http://localhost:8083/msg/api/create", JSON.stringify(parsedMessage), { headers } )
             .then(response => response.json()).then(data => setNewMessage(data));
-          return newMessage;  
         },
+
         validate: (values) => {
             const errors = {};
             if (!values.body) {

@@ -34,7 +34,7 @@ export default function MessageList() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-      fetch("http://localhost:8080/msg/api/messages")
+    fetch("http://localhost:8083/msg/api/messages")
       .then(response => response.json())
       .then(data => setMessages(data));
   }, []);

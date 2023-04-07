@@ -23,15 +23,15 @@ twilio.properties
 meta.json
 
 # client
-/node_modules
-/.pnp
-.pnp.js
+notification-microservices-client/node_modules
+notification-microservices-client/.pnp
+notification-microservices-client.pnp.js
 
 # client-testing
-/coverage
+notification-microservices-client/coverage
 
 # client-production
-/build
+notification-microservices-client/build
 
 # client-misc
 .DS_Store

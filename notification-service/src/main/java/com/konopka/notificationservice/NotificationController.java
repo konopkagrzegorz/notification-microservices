@@ -16,6 +16,8 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
+import static com.konopka.notificationservice.Status.NOT_SENT;
+
 @RestController
 public class NotificationController {
 
@@ -45,11 +47,15 @@ public class NotificationController {
         if (messages.isEmpty())
             return ResponseEntity.noContent().build();
 
-        LocalDate now = LocalDate.now();
         List<MessageDTO> filtered = messages.stream().
-                filter(messageDTO -> ChronoUnit.DAYS.between(messageDTO.getSendDate(), now) >= 2L).toList();
+                filter(this::shouldMessageBeSent).toList();
         filtered.forEach(smsServiceClient::sendSMS);
         filtered.forEach(messageClientService::updateMessage);
         return ResponseEntity.ok().build();
+    }
+
+    private boolean shouldMessageBeSent(MessageDTO messageDTO) {
+        return ChronoUnit.DAYS.between(LocalDate.now(), messageDTO.getSendDate()) >= 2L
+                && NOT_SENT.equals(messageDTO.getStatus());
     }
 }

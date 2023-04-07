@@ -1,7 +1,7 @@
-FROM node:17-alpine as builder
+FROM node:16-alpine as builder
 WORKDIR /app
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm i
+RUN npm install && npm install axios
 COPY . ./
 CMD ["npm", "start"]

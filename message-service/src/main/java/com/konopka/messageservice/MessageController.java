@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Slf4j
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MessageController {
     private final MessageService messageService;
     private final MessageParsingService messageParsingService;

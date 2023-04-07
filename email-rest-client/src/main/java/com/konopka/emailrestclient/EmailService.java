@@ -52,4 +52,8 @@ public class EmailService {
         List<Email> saved = emailRepository.findAll();
         return saved.stream().map(emailMapper::emailToEmailDto).collect(Collectors.toList());
     }
+
+    public List<EmailDTO> getEmails() {
+        return emailRepository.findAll().stream().map(emailMapper::emailToEmailDto).collect(Collectors.toList());
+    }
 }

@@ -31,6 +31,6 @@ public class EmailDTOConsumer {
     public void consumeMessage(EmailDTO message) {
         log.debug("Received a message with uuid: {}", message.getMessageId());
         restTemplate.exchange(messageServiceApiHost + MESSAGE,
-                HttpMethod.PUT, new HttpEntity<>(message), MessageDTO.class);
+                HttpMethod.POST, new HttpEntity<>(message), MessageDTO.class);
     }
 }
