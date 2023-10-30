@@ -17,14 +17,14 @@ public class MessageClientService {
     private static final String MESSAGES = "/messages";
     private static final String MESSAGE = "/message";
 
-    @Value("${httpClients.message-service}")
-    private String messageService;
-
+    private final String messageService;
     private final RestTemplate restTemplate;
 
     @Autowired
-    public MessageClientService(RestTemplate restTemplate) {
+    public MessageClientService(RestTemplate restTemplate,
+                                @Value("${httpClients.message-service}") String messageService) {
         this.restTemplate = restTemplate;
+        this.messageService = messageService;
     }
 
     public List<MessageDTO> getNotSentMessages() {

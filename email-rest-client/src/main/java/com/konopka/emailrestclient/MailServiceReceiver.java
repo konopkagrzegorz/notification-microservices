@@ -26,6 +26,7 @@ public class MailServiceReceiver implements MailService {
     }
 
     @Override
+    @ExcludeFromJacocoGeneratedReport
     public List<EmailDTO> handleReceiveEmail() throws IOException {
         Gmail gmailService = gmailObjectFactory.getObject();
         Gmail.Users.Messages.List request = gmailService.users().messages().list(user);

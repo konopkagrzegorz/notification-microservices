@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,7 +35,7 @@ class NotificationControllerTest {
                         .body("Message 1")
                         .sendDate(LocalDate.now())
                         .emailUuid(UUID.randomUUID().toString())
-                        .status(Status.NOT_SENT).sendDate(LocalDate.now())
+                        .status(Status.NOT_SENT).sendDate(LocalDate.now().minus(3, ChronoUnit.DAYS))
                         .build(),
                 new MessageDTO.MessageDTOBuilder()
                         .body("Message 2")

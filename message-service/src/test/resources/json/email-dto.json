@@ -1,0 +1,7 @@
+{
+  "from": "example@example.com",
+  "subject": "Example subject",
+  "body": "Body",
+  "date": "Mon, 12 Sep 2022 19:29:39 +0200",
+  "messageId": "18332c00ef8c07fb"
+}

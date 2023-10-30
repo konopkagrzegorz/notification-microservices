@@ -51,7 +51,7 @@ class FilteringControllerIT {
                 Optional.of(new Filter.FilterBuilder().id(1L).major("example@example.com").val("Payment").build()));
 
         // then
-        MvcResult result = mockMvc.perform(put("/filtering/api/filter")
+        MvcResult result = mockMvc.perform(put("/filter")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(given)))
                 .andExpect(status().isOk())
@@ -81,7 +81,7 @@ class FilteringControllerIT {
                 Optional.empty());
 
         // then
-        MvcResult result = mockMvc.perform(put("/filtering/api/filter")
+        MvcResult result = mockMvc.perform(put("/filter")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(given)))
                 .andExpect(status().isOk())
@@ -93,7 +93,7 @@ class FilteringControllerIT {
     @Test
     void mailContainsKey_shouldReturnBadRequest() throws Exception {
 
-        mockMvc.perform(put("/filtering/api/filter")
+        mockMvc.perform(put("/filter")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content((byte[]) null))
                 .andExpect(status().isBadRequest());

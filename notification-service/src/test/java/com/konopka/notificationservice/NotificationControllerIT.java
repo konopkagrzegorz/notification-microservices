@@ -67,7 +67,7 @@ class NotificationControllerIT {
                         .withBody(expectedResponseAsString)
                         .withStatus(HttpStatus.OK.value())));
 
-        MvcResult result = mockMvc.perform(get("/notification/api/notify"))
+        MvcResult result = mockMvc.perform(get("/notify"))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -91,7 +91,7 @@ class NotificationControllerIT {
                         .withBody(expectedResponseAsString)
                         .withStatus(HttpStatus.OK.value())));
 
-        MvcResult result = mockMvc.perform(get("/notification/api/notify"))
+        MvcResult result = mockMvc.perform(get("/notify"))
                 .andExpect(status().isNoContent())
                 .andReturn();
 

@@ -37,6 +37,7 @@ public class SmsServiceClient {
         this.properties = properties;
     }
 
+    @ExcludeFromJacocoGeneratedReport
     public void sendSMS(MessageDTO messageDTO) {
        log.debug("Sending an SMS from message: {}", messageDTO);
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

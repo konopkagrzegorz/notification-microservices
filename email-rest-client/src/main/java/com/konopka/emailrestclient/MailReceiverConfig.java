@@ -5,24 +5,24 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.Gmail;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.context.annotation.*;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.ResourceUtils;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.time.Duration;
-import java.util.Objects;
 
 import static com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets.load;
 
@@ -69,5 +69,12 @@ public class MailReceiverConfig {
                 .setConnectTimeout(Duration.ofMillis(10000))
                 .setReadTimeout(Duration.ofMillis(10000))
                 .build();
+    }
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+        PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();
+        placeholderConfigurer.setIgnoreUnresolvablePlaceholders(true);
+        return placeholderConfigurer;
     }
 }

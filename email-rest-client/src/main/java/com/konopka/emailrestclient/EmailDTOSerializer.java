@@ -10,9 +10,17 @@ import java.util.Map;
 @Slf4j
 public class EmailDTOSerializer implements Serializer<EmailDTO> {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    public EmailDTOSerializer() {
+    }
+
+    public EmailDTOSerializer(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
+    @ExcludeFromJacocoGeneratedReport
     public void configure(Map<String, ?> configs, boolean isKey) {
     }
 
@@ -21,7 +29,7 @@ public class EmailDTOSerializer implements Serializer<EmailDTO> {
         try {
             if (data == null) {
                 log.info("Null received at serializing an email from: {}", topic);
-                return new byte[0];
+                return null;
             }
             log.debug("Serializing an email form: {}", topic);
             return objectMapper.writeValueAsBytes(data);
@@ -32,6 +40,7 @@ public class EmailDTOSerializer implements Serializer<EmailDTO> {
     }
 
     @Override
+    @ExcludeFromJacocoGeneratedReport
     public void close() {
     }
 

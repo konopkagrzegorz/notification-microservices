@@ -4,6 +4,7 @@ import io.micrometer.core.annotation.Timed;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -34,8 +35,12 @@ public class FilteringController {
                     content = {@Content(mediaType = "application/json",
                     schema = @Schema(implementation = Boolean.class))
             }),
-            @ApiResponse(responseCode = "400", description = "Bad request"),
-            @ApiResponse(responseCode = "500", description = "Server error")
+            @ApiResponse(responseCode = "400", description = "Bad request",
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Bad request"))),
+            @ApiResponse(responseCode = "404", description = "Not found",
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Not found"))),
+            @ApiResponse(responseCode = "500", description = "Server error",
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Server error")))
     })
     @PutMapping("/filter")
     public ResponseEntity<Boolean> mailContainsKey(

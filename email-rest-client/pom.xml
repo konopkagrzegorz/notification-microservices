@@ -93,6 +93,11 @@
 			<version>3.2.1</version>
 		</dependency>
 		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-testing</artifactId>
+			<version>4.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>net.logstash.logback</groupId>
 			<artifactId>logstash-logback-encoder</artifactId>
 			<version>7.2</version>
@@ -112,6 +117,12 @@
 			<groupId>io.micrometer</groupId>
 			<artifactId>micrometer-registry-prometheus</artifactId>
 			<version>1.10.4</version>
+		</dependency>
+		<dependency>
+			<groupId>io.github.hakky54</groupId>
+			<artifactId>logcaptor</artifactId>
+			<version>2.9.0</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -147,6 +158,15 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>com/konopka/**/*DTO.*</exclude>
+						<exclude>com/konopka/**/*Builder.*</exclude>
+						<exclude>com/konopka/**/*Application.*</exclude>
+						<exclude>com/konopka/**/*Email.*</exclude>
+						<exclude>com/konopka/**/*Status.*</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 		<finalName>email-rest-client</finalName>

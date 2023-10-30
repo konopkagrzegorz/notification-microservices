@@ -9,26 +9,28 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 
 @ExtendWith(MockitoExtension.class)
 class MessageParsingServiceTest {
 
     @Mock
-    MessageMapper messageMapper;
+    private MessageMapper messageMapper;
 
     @Mock
-    KeywordsRepository keywordsRepository;
+    private KeywordsRepository keywordsRepository;
 
     @Mock
-    TemplateRepository templateRepository;
+    private TemplateRepository templateRepository;
 
     @InjectMocks
-    MessageParsingService messageParsingService;
+    private MessageParsingService messageParsingService;
+
 
     @Test
     void convertEmailDTOtoMessageDTO() {
@@ -82,5 +84,21 @@ class MessageParsingServiceTest {
 
         Assertions.assertThat(actual).isPresent();
         Assertions.assertThat(actual.get()).isEqualTo(expected);
+    }
+
+    @Test
+    void convertEmailDTOtoEmptyOptional() {
+        Mockito.when(keywordsRepository.findByKeyword(anyString())).thenReturn(Collections.emptyList());
+        Mockito.when(templateRepository.findByAddress(anyString())).thenReturn(Optional.empty());
+        EmailDTO emailDTO = new EmailDTO.EmailDTOBuilder()
+                .messageId("e976f0d4-22d1-48be-a724-ef6c3879f429")
+                .from("example@example.com")
+                .date("21-01-2022")
+                .subject("Example")
+                .body("New INVOICE, PAYMENT, 17-01-2022 21-01-2022")
+                .build();
+
+        Optional<MessageDTO> actual = messageParsingService.convertEmailDTOtoMessageDTO(emailDTO);
+        Assertions.assertThat(actual).isEmpty();
     }
 }

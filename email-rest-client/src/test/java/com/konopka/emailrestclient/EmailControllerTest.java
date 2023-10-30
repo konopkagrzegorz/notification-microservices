@@ -35,6 +35,14 @@ class EmailControllerTest {
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 
+    @ParameterizedTest
+    @MethodSource("dataForGetEmails")
+    void getFetchedEmails_shouldReturnListOfEmails(List<EmailDTO> given, ResponseEntity<List<EmailDTO>> expected) throws IOException {
+        Mockito.when(emailService.getEmails()).thenReturn(given);
+        ResponseEntity<List<EmailDTO>> actual = emailController.getFetchedEmails();
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
+
     private static Stream<Arguments> dataForGetEmails() {
         return Stream.of(
                 arguments(generateEmailDtoList(), ResponseEntity.ok(generateEmailDtoList())),

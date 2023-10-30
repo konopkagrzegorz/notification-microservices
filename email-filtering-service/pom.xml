@@ -110,10 +110,17 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>com/konopka/**/*DTO.*</exclude>
+						<exclude>com/konopka/**/*Builder.*</exclude>
+						<exclude>com/konopka/**/*Application.*</exclude>
+						<exclude>com/konopka/**/*Filter.*</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 
 		</plugins>
 		<finalName>email-filtering-service</finalName>
 	</build>
-
 </project>

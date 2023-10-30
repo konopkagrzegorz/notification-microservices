@@ -66,11 +66,11 @@ public class MessageController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = MessageDTO.class))
                     }),
             @ApiResponse(responseCode = "204", description = "No content",
-                    content = @Content(examples = @ExampleObject(name = "", value = "No content"))),
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "No content"))),
             @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request"))),
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Bad request"))),
             @ApiResponse(responseCode = "500", description = "Server error",
-                    content = @Content(examples = @ExampleObject(name = "", value = "Server error")))
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Server error")))
     })
     @PostMapping("/message")
     public ResponseEntity<MessageDTO> createMessageFromEmail(@Parameter( schema = @Schema(implementation = EmailDTO.class)) @RequestBody EmailDTO emailDTO) {
@@ -97,9 +97,11 @@ public class MessageController {
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = MessageDTO.class))
                     }),
             @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request"))),
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Bad request"))),
+            @ApiResponse(responseCode = "404", description = "Not found",
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Not found"))),
             @ApiResponse(responseCode = "500", description = "Server error",
-                    content = @Content(examples = @ExampleObject(name = "", value = "Server error")))
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Server error")))
     })
     @PutMapping("/message")
     public ResponseEntity<Void> updateMessage(@Parameter( schema = @Schema(implementation = MessageDTO.class)) @RequestBody MessageDTO messageDTO) {
@@ -116,8 +118,12 @@ public class MessageController {
             @ApiResponse(responseCode = "200", description = "OK",
                     content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = MessageDTO.class)))
                     }),
+            @ApiResponse(responseCode = "400", description = "Bad request",
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Bad request"))),
+            @ApiResponse(responseCode = "404", description = "Not found",
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Not found"))),
             @ApiResponse(responseCode = "500", description = "Server error",
-                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request")))
+                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Server error")))
     })
     @GetMapping("/messages")
     public ResponseEntity<List<MessageDTO>> getMessages(@Parameter(

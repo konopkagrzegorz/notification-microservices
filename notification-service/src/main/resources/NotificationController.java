@@ -33,17 +33,12 @@ public class NotificationController {
     @Timed(value = "notification.notify",
             description = "Total execution time for sending SMS notification for NOT_SENT emails",
             percentiles = {0.5, 0.7, 0.9, 0.95})
-    @Operation(description = "Send SMS notification for messages which meets the deadline and has NOT SENT status." +
-            " Update message status after that operation")
+    @Operation(description = "Send SMS notification for messages which meets the deadline and are NOT SENT")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",
-                    content = @Content(mediaType = "application/json")),
-            @ApiResponse(responseCode = "400", description = "Bad request",
-                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Bad request"))),
-            @ApiResponse(responseCode = "404", description = "Not found",
-                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Not found"))),
+                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request"))),
             @ApiResponse(responseCode = "500", description = "Server error",
-                    content = @Content(mediaType = "application/json", examples = @ExampleObject(name = "", value = "Server error")))
+                    content = @Content(examples = @ExampleObject(name = "", value = "Bad request")))
     })
     @GetMapping("/notify")
     @Scheduled(cron = "0 30 17 * * *")
