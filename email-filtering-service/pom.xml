@@ -119,7 +119,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-
 		</plugins>
 		<finalName>email-filtering-service</finalName>
 	</build>

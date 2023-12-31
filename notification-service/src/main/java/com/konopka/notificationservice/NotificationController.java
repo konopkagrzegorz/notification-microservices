@@ -51,9 +51,7 @@ public class NotificationController {
         List<MessageDTO> messages = messageClientService.getNotSentMessages();
         if (messages.isEmpty())
             return ResponseEntity.noContent().build();
-
-        List<MessageDTO> filtered = messages.stream().
-                filter(this::shouldMessageBeSent).toList();
+        List<MessageDTO> filtered = messages.stream().filter(this::shouldMessageBeSent).toList();
         filtered.forEach(smsServiceClient::sendSMS);
         filtered.forEach(messageClientService::updateMessage);
         return ResponseEntity.ok().build();

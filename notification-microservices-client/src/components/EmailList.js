@@ -43,7 +43,7 @@ export default function EmailList() {
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {
-      fetch("http://localhost:8080/email/api/list-emails")
+      fetch("http://localhost:8081/email/api/list-emails")
       .then(response => response.json())
       .then(data => setEmails(data));
   }, []);

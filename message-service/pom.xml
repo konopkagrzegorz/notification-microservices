@@ -146,5 +146,4 @@
 		</plugins>
 		<finalName>message-service</finalName>
 	</build>
-
 </project>

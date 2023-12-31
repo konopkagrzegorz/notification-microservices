@@ -4,8 +4,6 @@ import io.dropwizard.testing.FixtureHelpers;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.ArgumentMatchers.anyString;
-
 class EmailDTODeserializerTest {
 
     private EmailDTODeserializer classUnderTest = new EmailDTODeserializer();
@@ -22,13 +20,13 @@ class EmailDTODeserializerTest {
                 .date("Mon, 12 Sep 2022 19:29:39 +0200")
                 .build();
 
-        EmailDTO actual = classUnderTest.deserialize(anyString(), serialized.getBytes());
+        EmailDTO actual = classUnderTest.deserialize("raw", serialized.getBytes());
         Assertions.assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     void deserializeShouldReturnNull() {
-        EmailDTO actual = classUnderTest.deserialize(anyString(), null);
+        EmailDTO actual = classUnderTest.deserialize("raw", null);
         Assertions.assertThat(actual).isEqualTo(null);
     }
 }
